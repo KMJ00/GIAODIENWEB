@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tin tức mới cập nhật</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+     <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .content_fade {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
+        body{
+            padding-top: 110px;
+            position: relative;
+        }
+        .header {
+            background-color: #B5313A;
+            padding-bottom: 10px;
+            
+        }
+        
+                
+        .modal-content {
+            height: 100%;
+            border: none;
+            border-radius: 0; 
+                    }
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+        }
+        .dropdown-menu {
+            padding-left: 20px;
+        }
+        
+        #hover_menu .nav-item.dropdown:hover .dropdown-menu {
+            display: block; 
+        }
+        #hover_menu a:hover{
+            background-color: white;
+            color: #B5313A;
+        }
+        #hover_menu a{
+            color: white;
+        }
+         #hover_menu{
+            background-color: #FFDECF;
+         }
+
+       
+        .dropdown-menu {
+            display: none; 
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 2px solid white; 
+            border-radius: 10px; 
+                        background-color: white; 
+            padding: 10px; 
+            width: 100%;
+            margin: 25px 0;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+            font-size: 1.2vw;
+            width: 100%;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer; 
+            font-size: 1.5vw;
+            color: gray;
+            padding: 0 10px;
+
+        
+        }
+        .search-box button:hover{
+            color: #B5313A;
+        }
+        a{
+            text-decoration: none;
+        
+        }
+        #link_acc a:hover{
+            background-color: white;
+            color: #B5313A;
+        }#link_acc a{
+            color: white;
+        }
+        #link_acc a:hover button{
+            color: #B5313A;
+        }
+        #a_menu a{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+       
+        
+        
+       
+
+        .btn-wave {
+            position: fixed;
+            overflow: hidden;
+            color: white;
+            background-color: #B5313A;
+            border: none;
+            bottom: 80px;
+            right: 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .btn-wave:focus {
+            outline: none;
+        }
+
+        .wave {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+            animation: wave-animation 3s ease-out infinite;
+        }
+
+        
+        .wave:nth-child(1) { width: 100px; height: 100px; animation-delay: 0s; }
+        .wave:nth-child(2) { width: 150px; height: 150px; animation-delay: 0.2s; opacity: 0.6; }
+        .wave:nth-child(3) { width: 200px; height: 200px; animation-delay: 0.4s; opacity: 0.4; }
+        
+
+        @keyframes wave-animation {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+        }
+
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            background-color: #FFDECF;
+            width: 300px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 2px solid #B5313A; 
+        }
+
+        .chat-header {
+            background-color: #B5313A; 
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            
+            align-items: center;
+        }
+
+        .chat-body {
+            padding: 10px;
+            height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-footer input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 4px;
+        }
+
+        .chat-footer button {
+            padding: 10px;
+            background-color: #B5313A; 
+            color: white;
+            border: none;
+            border-radius: 50%; 
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px 10px;
+            border-radius: 20px;
+            max-width: 75%;
+            
+            text-align: justify-all;
+        }
+
+        .message.sent {
+            background-color: #B5313A;  
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message.received {
+            background-color: #f1f1f1; 
+            color: black;
+            align-self: flex-start;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            padding-left: 120px;
+        }
+     @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .slogan-container {
+            background-color: #FFDECF;
+            padding: 3px 0;
+            color: #B5313A;
+            margin-top: 3px;
+            border-left: 12px solid white;
+            border-right: 12px solid white;
+
+        }
+        .slogan-item {
+            text-align: center;
+        }
+        
+        .slogan-item h6 {
+            
+            font-weight: bold;
+        }
+        .slogan-item i {
+            font-size: 35px;
+            animation: pulse 1.7s infinite;
+            display: inline-block;
+        }
+        
+
+  
+        .cart-button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            position: relative;
+        }
+        .cart-button .badge {
+            position: absolute;
+            background-color: white;
+            color: red;
+            border-radius: 50%;
+           font-size: 0.8vw;
+            top: -27px;
+            left: 37px;
+        }
+        #gt_color:hover .cart-button{
+            color: #B5313A;}
+
+        #button_cac_san_pham:hover{
+            color: white;
+            background-color: #B5131A;
+        }
+        .list-unstyled a{
+            color: black;
+        }
+
+
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+        }
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            margin-right: 10px;
+            border: 1px solid #B5313A;
+        }
+        .thumbnail:hover {
+            border: 2px solid #B5313A;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+
+
+
+        .card {
+            margin-bottom: 20px;
+            height: 100%; /* Chiều cao tự động */
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Đảm bảo nội dung được phân bổ đều */
+        }
+                
+</style>
+        
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" tabindex="0">
+    <div class="container-fluid">
+        <!-- Modal Giỏ hàng -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="margin-top: 60px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FFDECF;height: 60px;">
+                <h5 class="modal-title" id="cartModalLabel" style="">Giỏ Hàng</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border: none;background-color: transparent; font-size: 25px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px;overflow-y: auto;">
+                <div id="cart-items"></div>
+                
+                <!-- Phí Vận Chuyển -->
+                <div class="form-group mt-3" id="shipping-fee-container" style="display: none;">
+                    
+                        <div class="d-flex">
+                            <div style="width: 65%">Phí vận chuyển</div>
+                            <div style="width: 35%">30.000 đ</div>
+                        </div>
+                    
+                    <p></p>
+                </div>
+
+                <!-- Danh sách voucher đã lưu -->
+                <h5 class="mt-3">Voucher đã lưu:</h5>
+                <div id="voucher-list-modal">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="voucher-options" id="no-voucher" value="none" onchange="applyVoucher()" checked>
+                        <label class="form-check-label" for="no-voucher">Không dùng voucher</label>
+                    </div>
+                    <div id="voucher-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <span id="total-price-label" style="display: none;">Tổng tiền:</span>
+                <span id="total-price-footer" style="color: red;">0</span>
+                <button type="button" id="checkout-button" class="btn" style="background-color: #B5313A;color: white;" onclick="checkout()" disabled>Thanh toán</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--nut chat -->
+<button class="btn-wave" id="chatButton">
+    <i class="bi bi-chat-dots"></i>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    
+</button>
+
+<!-- Pop-up Chat -->
+<div class="chat-popup" id="chatPopup">
+    <div class="chat-header">
+        <img src="../img/logo.png" style="width: 40px;height: 30px;">
+        The Coffee
+        <button class="close-btn" id="closeButton">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+        <button id="sendButton">Gửi</button>
+    </div>
+</div>
+<script>
+    let isFirstOpen = true;
+
+    document.getElementById('chatButton').addEventListener('click', function() {
+        const chatPopup = document.getElementById('chatPopup');
+        chatPopup.style.display = chatPopup.style.display === 'block' ? 'none' : 'block';
+
+       
+        if (chatPopup.style.display === 'block' && isFirstOpen) {
+            setTimeout(() => {
+                const chatBody = document.getElementById('chatBody');
+                const initialResponse = document.createElement('div');
+                initialResponse.classList.add('message', 'received');
+                initialResponse.textContent = "Bạn cần hỗ trợ gì?";
+                chatBody.appendChild(initialResponse);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 2000); 
+
+            isFirstOpen = false;
+        }
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('chatPopup').style.display = 'none';
+    });
+
+    function sendMessage() {
+        const chatInput = document.getElementById('chatInput');
+        const chatBody = document.getElementById('chatBody');
+        if (chatInput.value.trim() !== '') {
+            const message = document.createElement('div');
+            message.classList.add('message', 'sent');
+            message.textContent = chatInput.value;
+            chatBody.appendChild(message);
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            
+            setTimeout(simulateResponse, 2000);
+        }
+    }
+
+    document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+    
+    document.getElementById('chatInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+            event.preventDefault(); 
+        }
+    });
+
+  
+    function simulateResponse() {
+        const response = document.createElement('div');
+        response.classList.add('message', 'received');
+        response.textContent = "Chúng mình sẽ phản hồi bạn iuuu sớm nhé 🥰!";
+        document.getElementById('chatBody').appendChild(response);
+        document.getElementById('chatBody').scrollTop = chatBody.scrollHeight;
+    }
+</script>
+<!--ket thuc nut chat -->
+
+<div class="container-fluid fixed-top">
+<header class="header" style="border-bottom: 10px solid #FFDECF;;">
+        <div class="row" style="height: 100px;width: 100%;">
+            <div class="col-3">
+                <a href="trang_chu_coffee.html" class="navbar-brand">
+             <img src="../img/logo.png" class="border-3 border " style="width: 30%;border-radius: 50%; margin-top: 6px; margin-left: 45%;">   
+             <br>
+             <span style="color: white; font-weight: bold;margin-left: 45%;font-size: 1.3vw;">The Coffee</span>
+         </a>
+            </div>
+            <div class="col-6">
+                <div class="search-box">
+    <input type="text" placeholder="Tìm sản phẩm..." />
+    <button type="submit"><i class="bi bi-search"></i></button> <!-- Biểu tượng tìm kiếm -->
+</div>
+            </div>
+            <div class="col-3 text-center" style=" font-size: 1vw;">
+                <div class="row responsive-block" style="padding-top: 8%;" id="link_acc">
+                    
+                    <a class="col-3 border-end border-start ms-4 pt-1" style="border-radius: 10px;">
+                        <i class="bi bi-person"></i>
+                        <br>
+                        <button id="profileBtn" class="cart-button" data-bs-toggle="modal" data-bs-target="#profileModal">Tài khoản</button>
+                    </a>
+                
+                
+                    <a class="col-3 border-end border-start ms-2 pt-1" style="border-radius: 10px;" id="gt_color">
+                        <i class="bi bi-cart2"></i>
+                        <br>
+                        
+                        <button class="cart-button" onclick="showCart()">
+                                Giỏ hàng
+                                <span class="badge" id="cart-count-badge">0</span>
+                        </button>
+                    
+                    </a>
+                
+                </div>
+            </div>
+            
+        </div>
+    </header>
+</div>
+<!-- profile modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FFDECF">
+                <h5 class="modal-title" id="profileModalLabel">Thông tin tài khoản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height: 150px">
+                <div class="d-flex justify-content-center">
+                    <i style="font-size: 50px" class="bi bi-person-circle"></i>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p id="profileInfo"></p>
+                </div>
+                
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="register.html">
+                    <button type="button" class="btn btn-success" style="color: white;">Tạo tài khoản</button>
+                </a>
+                <a href="login.html">
+                <button type="button" class="btn btn-danger" style="color: white;" onclick="xoa_profile()">
+                    <span id="button_profile"></span>
+                </button>
+                </a>
+                
+                <a href="forget.html">
+                    <button type="button" class="btn btn-warning" style="color: white;">Quên mật khẩu</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+        const profileInfo = document.getElementById("profileInfo");
+        const button_profile = document.getElementById("button_profile");
+        if (userProfile) {
+            profileInfo.textContent = `Tài khoản: ${userProfile.username}`;
+            button_profile.textContent = "Đăng xuất";
+        } else {
+            profileInfo.textContent = "Bạn chưa đăng nhập.";
+            button_profile.textContent = "Đăng nhập";
+        }
+    });
+    function xoa_profile(){
+        if (localStorage.getItem("userProfile")) {
+                localStorage.removeItem("userProfile");
+            }
+    }
+</script>
+<!-- kết thúc profile modal -->
+<nav class="navbar navbar-expand-lg navbar-light" id="hover_menu">
+    <div class="container">
+        
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="modal" data-bs-target="#menuModal" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-none d-lg-block">
+            <ul class="navbar-nav d-flex justify-content-between" style="background-color: #B5313A;width: 100%; height: 55px; font-size: 1.2em">
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="trang_chu_coffee.html">Trang chủ</a></li>
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="sp_moi.html">Sản phẩm mới</a></li>
+
+                <li class="nav-item flex-fill m-1 dropdown">
+                    <a class="nav-link text-center dropdown-toggle border-end border-start"  style="border-radius: 3px" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tin tức</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #B5313A;">
+                        <li><a class="dropdown-item" href="tin_tuc_new.html">Mới cập nhật</a></li>
+                        <li><a class="dropdown-item" href="tin_tuc_forcus.html">Nổi bật</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item flex-fill m-1 dropdown">
+                    <a class="nav-link text-center dropdown-toggle border-end border-start"  style="border-radius: 3px" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giới thiệu</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2" style="background-color: #B5313A;">
+                        <li><a class="dropdown-item" href="gioi_thieu_sp.html">Giới thiệu sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="he_thong_ban_hang.html">Hệ thống bán hàng</a></li>
+                        
+                    </ul>
+                </li>
+                                
+                
+              
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="lien_he.html">Liên hệ</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Modal menu-->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="position: fixed;top: 110px;left: 10px;margin: 0;"> 
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="menuModalLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a class="d-block" href="trang_chu_coffee.html" style="color: black;">Trang chủ</a></li>
+                    <li class="list-group-item"><a class="d-block" href="sp_moi.html" style="color: black;">Sản phẩm mới</a></li>
+
+                    <li class="list-group-item dropdown">
+                        <a class="dropdown-toggle d-block" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;" href="">Tin tức</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="tin_tuc_new.html">Mới cập nhật</a></li>
+                            <li><a class="dropdown-item" href="tin_tuc_forcus.html">Nổi bật</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item dropdown">
+                        <a class="dropdown-toggle d-block" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;" href="">Giới thiệu</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="gioi_thieu_sp.html">Giới thiệu sản phẩm</a></li>
+                            <li><a class="dropdown-item" href="he_thong_ban_hang.html">Hệ thống bán hàng</a></li>
+                            
+                        </ul>
+                    </li>
+                    
+                    <li class="list-group-item"><a class="d-block" href="lien_he.html" style="color: black;">Liên hệ</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!-- kết thúc khối Modal -->
+
+
+
+<div class="container pb-5">
+    <div class="d-flex justify-content-center mt-3 mb-3">
+        <h4>Tin tức mới cập nhật</h4>
+    </div>
+        <div class="row g-3">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt1.png" class="card-img-top" alt="Tin tức 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Giỏ hoa ửng hồng</h5>
+                        <p class="card-text">Giới thiệu hoa ửng hồng từ The Coffee!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt2.jpg" class="card-img-top" alt="Tin tức 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Trà đào hồng kim quất</h5>
+                        <p class="card-text">Tươi mát với hương vị mới!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt3.jpg" class="card-img-top" alt="Tin tức 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Ra mắt bộ đôi ngọt ngào</h5>
+                        <p class="card-text">Phindi matcha dâu và Phindi dừa môn</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt4.png" class="card-img-top" alt="Tin tức 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Đặt trước quà sự kiện</h5>
+                        <p class="card-text">Đặt trước quà sự kiện - Gì cũng có!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt5.jpg" class="card-img-top" alt="Tin tức 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Sự kiện hot</h5>
+                        <p class="card-text">Không gian cafe mới bên dòng sông Hàn</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="../img/tt6.jpg" class="card-img-top" alt="Tin tức 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông báo</h5>
+                        <p class="card-text">Lịch hoạt động Tết Nguyên Đán 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<!--footer -->
+    <div class="container-fluid pt-4 pb-4" style="background-color: #CDC9C9;" id="footer">
+    <div class="container">
+    <div class="row" style="font-size: 1.2vw;">
+        <div class="col-3">
+            <h5>Giới thiệu</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Về Chúng Tôi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Sản phẩm</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Khuyến mãi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Cửa hàng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Tuyển dụng</a></li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <h5>Điều khoản</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Điều khoản sử dụng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Hướng dẫn xuất hóa đơn GTGT</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Chính sách bảo mật thông tin</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-6 text-right" style="height: 250px">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.9611123444442!2d105.39337027472195!3d21.31255287797184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31348de7e680a8df%3A0xceafbd228b67326c!2zVmluY29tIFBsYXphIFZp4buHdCBUcsOs!5e0!3m2!1svi!2s!4v1741708492934!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+</div><!-- kết thúc khối chua toan bo noi dung -->
+<script>
+    let cartCount = 0;
+    let cartItems = [];
+    let totalPrice = 0;
+    let appliedVoucher = null;
+    let savedVouchers = [];
+
+    function addToCart(productName, price) {
+        const existingItem = cartItems.find(item => item.name === productName);
+        if (existingItem) {
+            existingItem.quantity += 1;
+            totalPrice += price;
+        } else {
+            cartItems.push({ name: productName, price: price, quantity: 1 });
+            totalPrice += price;
+        }
+        cartCount++;
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+    }
+    function saveVoucher(voucherCode, discount) {
+        if (!savedVouchers.includes(voucherCode)) {
+            savedVouchers.push(voucherCode);    
+            updateVoucherList();
+        }
+    }
+    function updateVoucherList() {
+        const voucherListDiv = document.getElementById("voucher-list");
+        voucherListDiv.innerHTML = "";
+
+        savedVouchers.forEach(voucher => {
+            const voucherDiv = document.createElement("div");
+            voucherDiv.innerHTML = `
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="voucher-options" id="${voucher}" value="${voucher}" onchange="applyVoucher()">
+                    <label class="form-check-label" for="${voucher}">${voucher}</label>
+                </div>
+            `;
+            voucherListDiv.appendChild(voucherDiv);
+        });
+        updateVoucherOptions();
+    }
+    function applyVoucher() {
+        const selectedVoucher = document.querySelector('input[name="voucher-options"]:checked');
+        if (selectedVoucher) {
+            const voucherCode = selectedVoucher.value;
+            if (voucherCode === "none") {
+                appliedVoucher = null;
+            } else {
+                const discount = getVoucherDiscount(voucherCode);
+                appliedVoucher = discount; 
+            }
+            updateTotalPrice();
+        }
+    }
+    function updateCartModal() {
+        const cartItemsDiv = document.getElementById("cart-items");
+        cartItemsDiv.innerHTML = ""; 
+        if (cartItems.length === 0) {
+            cartItemsDiv.innerHTML = `<p class="text-center">Giỏ hàng trống</p>`;
+            document.getElementById("shipping-fee-container").style.display = "none";
+            document.getElementById("total-price-label").style.display = "none";
+            document.getElementById("total-price-footer").innerText = "0";
+            disableVoucherOptions(true);
+        } else {
+            cartItems.forEach((item, index) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>${item.name} (${item.quantity})</span>
+                        <div>
+                            <span>${(item.price * item.quantity).toLocaleString()}đ</span>
+                            <button style="margin: 1px auto" class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, 1)">+</button>
+                            <button style="margin: 2px auto" class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, -1)">-</button>
+                            <button style="margin: 2px auto" class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Xóa</button>
+                        </div>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+            document.getElementById("shipping-fee-container").style.display = "block"; 
+            document.getElementById("total-price-label").style.display = "block";
+            updateTotalPrice();
+            disableVoucherOptions(false);
+            updateVoucherOptions();
+        }
+    }
+    function disableVoucherOptions(disable) {
+        const voucherOptions = document.querySelectorAll('input[name="voucher-options"]');
+        voucherOptions.forEach(option => {
+            option.disabled = disable;
+        });
+    }
+    function updateTotalPrice() {
+        let total = totalPrice + 30000;
+        if (appliedVoucher) {
+            total -= appliedVoucher; 
+        }
+        document.getElementById("total-price-footer").innerText = total.toLocaleString() + "đ";
+        document.getElementById("checkout-button").disabled = cartItems.length === 0;
+        // Kiểm tra điều kiện áp dụng voucher
+        updateVoucherOptions();
+    }
+    function updateVoucherOptions() {
+        const totalValue = totalPrice + 30000;
+        const voucherOptions = document.querySelectorAll('input[name="voucher-options"]');
+        voucherOptions.forEach(option => {
+            const voucherCode = option.value;
+            const condition = getVoucherCondition(voucherCode);
+            option.disabled = totalValue < condition;
+            if (option.checked && option.disabled) {
+                document.getElementById("no-voucher").checked = true;
+            }
+        });
+    }
+    function getVoucherCondition(voucherCode) {
+        const validConditions = {
+            'FS25': 0,
+            'CFH15': 199000,
+            'CFH30': 399000,
+            'CFH50': 699000
+        };
+        return validConditions[voucherCode] || 0;
+    }
+    function getVoucherDiscount(voucherCode) {
+        const validVouchers = {
+            'FS25': 25000,
+            'CFH15': 15000,
+            'CFH30': 30000,
+            'CFH50': 50000
+        };
+        return validVouchers[voucherCode] || 0;
+    }
+    function changeQuantity(index, delta) {
+        const item = cartItems[index];
+        if (item.quantity + delta > 0) {
+            item.quantity += delta;
+            totalPrice += delta * item.price; 
+            updateCartModal();
+            document.getElementById("cart-count-badge").innerText = cartItems.reduce((count, item) => count + item.quantity, 0);
+        }
+    }
+
+    function removeFromCart(index) {
+        totalPrice -= cartItems[index].price * cartItems[index].quantity; 
+        cartItems.splice(index, 1); 
+        cartCount = cartItems.reduce((count, item) => count + item.quantity, 0); 
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+    }
+
+    function checkout() {
+        alert("Thanh toán thành công!");
+        cartCount = 0;
+        cartItems = [];
+        totalPrice = 0;
+        appliedVoucher = null; 
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+        document.getElementById("no-voucher").checked = true;
+        disableVoucherOptions(true);
+    }
+
+    function showCart() {
+        updateCartModal(); 
+        $('#cartModal').modal('show');
+    }
+</script>
+</body>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</html>

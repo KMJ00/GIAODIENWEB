@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Giới thiệu sản phẩm</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+        	background-color: #FFE4B5;
+        	color: #8B4513;
+        	font-size: 1.2vw;
+        }
+        #slide-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('../img/gtsp.png');
+        	background-size: cover;
+            
+            overflow: hidden;
+        }
+        .slider-container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            perspective: 1000px;
+        }
+        .slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotate 45s infinite linear;
+            transform-style: preserve-3d;
+        }
+        .slide {
+            position: absolute;
+            width: 60%;
+            height: 80%;
+            left: 20%;
+            top: 10%;
+            border-radius: 15px; /* Sửa lại đơn vị */
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 1s;
+        }
+        .slide img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .slide:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
+        .slide:nth-child(2) { transform: rotateY(90deg) translateZ(400px); }
+        .slide:nth-child(3) { transform: rotateY(180deg) translateZ(400px); }
+        .slide:nth-child(4) { transform: rotateY(270deg) translateZ(400px); }
+
+        @keyframes rotate {
+            0% { transform: rotateY(0deg); }
+            25% { transform: rotateY(90deg); }
+            50% { transform: rotateY(180deg); }
+            75% { transform: rotateY(270deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        .slider-container:hover .slider {
+            animation-play-state: paused;
+        }
+
+
+
+        .product-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            
+            opacity: 0;
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .product-section.active {
+            opacity: 1;
+        }
+        .product-section.active .product-image {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .product-section.active .product-info {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .product-image {
+            flex: 1;
+            text-align: center;
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product-info {
+            flex: 1;
+            padding: 0 30px;
+            transform: translateX(100px);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .list-unstyled a{
+            color: black;
+            text-decoration: none;
+        }
+        .product-info p{
+        	text-align: justify;
+        	line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="slide-header">
+    	<div class="container" style="position: absolute;top: 10px; left: 60px;">
+    		<div class="row">
+    		<div class="col-3">
+                <a href="trang_chu_coffee.html" class="navbar-brand">
+             <img src="../img/logo_red.png" class="border-3 border" style="width: 30%;border-radius: 50%; margin-top: 6px; margin-left: 45%; border-color: #8B4513 !important;">   
+             <br>
+             <span style="color: #8B4513; font-weight: bold;margin-left: 40%;font-size: 1.5vw;">The Coffee</span>
+         </a>
+            </div>
+        </div>
+    	</div>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="../img/anh1.jpg" alt="Slide 1">
+                </div>
+                <div class="slide">
+                    <img src="../img/anh4.jpg" alt="Slide 4">
+                </div>
+                
+                <div class="slide">
+                    <img src="../img/anh3.jpeg" alt="Slide 3">
+                </div>
+                
+                <div class="slide">
+                    <img src="../img/anh2.png" alt="Slide 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+    	<div class="d-flex justify-content-center pt-3">
+    	<h2>Giới thiệu sản phẩm</h2>
+    	</div>
+        <!-- Sản phẩm 1 -->
+        <div class="row product-section">
+            <div class="col-6 product-image">
+                <img src="../img/flash63.jpg" alt="Cà phê đen">
+            </div>
+            <div class="col-6 product-info">
+            	<div class="d-flex justify-content-center">
+                <h4>Cà phê truyền thống nguyên chất</h4>
+            	</div>
+                <p>
+					<p>Hạt cà phê thượng hạng trồng ở vùng cao nguyên của Việt Nam được rang và phối trộn theo công thức độc đáo tại The Coffee.
+					Sự kết hợp hài hòa giữa Arabica và Robusta.
+					Vị đậm và ngọt đầy.
+					Là sản phẩm đặc sản của café Sữa Đá, Café Đá tại hệ thống The Coffee
+					80% Robusta – 20% Arabica.
+					Cà phê The Coffee được đóng gói tiện lợi cho việc sử dụng và bảo quản. Không chỉ dùng trong gia đình, với bao bì lịch sự còn thích hợp làm quà tặng ý nghĩa dành cho người thân, bạn bè và đồng nghiệp.
+					<br>
+					Hướng dẫn sử dụng:
+					<br>
+					1. Cho 20 gram vào phin 
+					<br>
+					2. Dùng nước tinh khết đun nóng. Châm 30ml vào phin và đợi 2 phút rồi rót thêm 40ml nước để có ly cà phê thành phẩm
+					<br>
+					3. Cho thêm đá hoặc đường hoặc sữa đặc
+					<br>
+					Xuất xứ: Việt Nam
+					<br>
+					Hạn sử dụng: 18 tháng kể từ ngày sản xuất
+					</p>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="row product-section">
+            <div class="col-6 product-image">
+                <img src="../img/uonglien3.jpg" alt="Cà phê sữa">
+            </div>
+            <div class="col-6 product-info">
+            	<div class="d-flex justify-content-center">
+                <h4>Cà phê sữa đá lon 235ml</h4>
+            	</div>
+                <p>
+					<p>
+
+Với thiết kế lon cao tiện dụng, thưởng thức cà phê đậm đà chưa bao giờ dễ dàng đến thế. Cà phê sữa đá lon - The Coffee mang đến trải nghiệm cà phê hoàn hảo, sẵn sàng phục vụ bạn mọi lúc, mọi nơi.
+<br>
+Đặc điểm nổi bật:
+<br>
+Thiết kế tiện dụng: Lon cao tiện lợi, dễ dàng thưởng thức cà phê đậm đà ở bất kỳ đâu.
+<br>
+Hương vị đặc trưng: Vị cà phê đậm đà với mùi thơm đặc trưng, phù hợp với những người yêu thích cà phê mạnh mẽ.
+<br>
+Dễ sử dụng: Chỉ cần bật nắp, bạn có thể thưởng thức ngay hương vị cà phê đậm đà bất kỳ lúc nào.
+<br>
+ 
+
+Hướng dẫn sử dụng:
+
+Lắc đều trước khi uống để hòa quyện các thành phần.
+
+ Ngon hơn khi uống lạnh.
+<br>
+Hướng dẫn bảo quản:
+
+Bảo quản nơi khô ráo, thoáng mát và tránh ánh nắng trực tiếp.
+					</p>
+            </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="row product-section">
+            <div class="col-6 product-image">
+                <img src="../img/flash23.jpg" alt="Cà phê trứng">
+            </div>
+            <div class="col-6 product-info">
+            	<div class="d-flex justify-content-center">
+                <h4>Cà phê rang xay Moka</h4>
+            	</div>
+                <p>
+					<p>
+						Moka là tên gọi của một loại cà phê Arabica thượng hạng của Việt Nam có vị thanh với hương thơm dịu dàng. Moka Arabica là loại hạt cà phê cao cấp nhất trong các loại hạt cà phê, có giá trị dinh dưỡng, chất lượng mùi vị cà phê thơm ngon đặc biệt. Hạt cafe Moka Arabica có vị rất riêng, đắng nhẹ, hơi chua và một chút béo. 
+						
+
+
+<br>
+Phương pháp pha tiêu chuẩn:
+<br>
+Cho 20 gram (khoảng 3 muỗng cà phê) vào phin.
+ Dùng nước tinh khết đun nóng (khoảng 90-96 oC). Châm 30ml nước vào phin và đợi khoảng 2 phút rồi rót thêm 40ml nước để được ly cà phê thành phẩm.
+Cho thêm sữa đặc hoặc đường, đá tùy thích và thưởng thức.
+<br>
+Hướng dẫn bảo quản:
+<br>
+Dùng kéo để mở bao theo đường vạch sẵn.
+Gập kẹp bảo quản lại để giữ kín miệng bao sau khi sử dụng.
+Bảo quản nơi khô ráo và thoáng mát.
+<br>
+Xuất xứ thương hiệu: Việt Nam.
+					</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productSections = document.querySelectorAll('.product-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            productSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+
+
+
+    <div class="container-fluid pt-4 pb-4" style="background-color: #CDC9C9;" id="footer">
+    <div class="container">
+    <div class="row" style="font-size: 1.2vw;color: black;">
+        <div class="col-3">
+            <h5>Giới thiệu</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Về Chúng Tôi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Sản phẩm</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Khuyến mãi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Cửa hàng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Tuyển dụng</a></li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <h5>Điều khoản</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Điều khoản sử dụng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Hướng dẫn xuất hóa đơn GTGT</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Chính sách bảo mật thông tin</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-6 text-right" style="height: 250px">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.9611123444442!2d105.39337027472195!3d21.31255287797184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31348de7e680a8df%3A0xceafbd228b67326c!2zVmluY29tIFBsYXphIFZp4buHdCBUcsOs!5e0!3m2!1svi!2s!4v1741708492934!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sản phẩm mới ra mắt</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+        	background-color: #FFE4B5;
+        	color: #8B4513;
+        	font-size: 1.2vw;
+        }
+        #slide-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('../img/gtsp.png');
+        	background-size: cover;
+            
+            overflow: hidden;
+        }
+        .slider-container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            perspective: 1000px;
+        }
+        .slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotate 45s infinite linear;
+            transform-style: preserve-3d;
+        }
+        .slide {
+            position: absolute;
+            width: 60%;
+            height: 80%;
+            left: 20%;
+            top: 10%;
+            border-radius: 15px; /* Sửa lại đơn vị */
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 1s;
+        }
+        .slide img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .slide:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
+        .slide:nth-child(2) { transform: rotateY(90deg) translateZ(400px); }
+        .slide:nth-child(3) { transform: rotateY(180deg) translateZ(400px); }
+        .slide:nth-child(4) { transform: rotateY(270deg) translateZ(400px); }
+
+        @keyframes rotate {
+            0% { transform: rotateY(0deg); }
+            25% { transform: rotateY(90deg); }
+            50% { transform: rotateY(180deg); }
+            75% { transform: rotateY(270deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        .slider-container:hover .slider {
+            animation-play-state: paused;
+        }
+
+
+
+        .product-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            
+            opacity: 0;
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .product-section.active {
+            opacity: 1;
+        }
+        .product-section.active .product-image {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .product-section.active .product-info {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .product-image {
+            flex: 1;
+            text-align: center;
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product-info {
+            flex: 1;
+            padding: 0 30px;
+            transform: translateX(100px);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .list-unstyled a{
+            color: black;
+            text-decoration: none;
+        }
+        .product-info p{
+        	text-align: justify;
+        	line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="slide-header">
+    	<div class="container" style="position: absolute;top: 10px; left: 60px;">
+    		<div class="row">
+    		<div class="col-3">
+                <a href="trang_chu_coffee.html" class="navbar-brand">
+             <img src="../img/logo_red.png" class="border-3 border" style="width: 30%;border-radius: 50%; margin-top: 6px; margin-left: 45%; border-color: #8B4513 !important;">   
+             <br>
+             <span style="color: #8B4513; font-weight: bold;margin-left: 40%;font-size: 1.5vw;">The Coffee</span>
+         </a>
+            </div>
+        </div>
+    	</div>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="../img/spm1.jpg" alt="Slide 1">
+                </div>
+                <div class="slide">
+                    <img src="../img/spm2.jpg" alt="Slide 4">
+                </div>
+                
+                <div class="slide">
+                    <img src="../img/spm3.jpg" alt="Slide 3">
+                </div>
+                
+                <div class="slide">
+                    <img src="../img/spm4.jpg" alt="Slide 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+    	<div class="d-flex justify-content-center pt-3">
+    	<h2>Sản phẩm mới</h2>
+    	</div>
+        <!-- Sản phẩm 1 -->
+        <div class="row product-section">
+            <div class="col-6 product-image">
+                <img src="../img/spm.jpeg" alt="Cà phê đen">
+            </div>
+            <div class="col-6 product-info">
+            	<div class="d-flex justify-content-center">
+                <h4>Bánh Croissant</h4>
+            	</div>
+                <p>
+					<p>Bánh Croissant là một trong những loại bánh ngọt nổi tiếng và được yêu thích trên toàn thế giới, có nguồn gốc từ nước Pháp. Với hình dáng đặc trưng là lớp vỏ xoắn ốc vàng ươm, bánh Croissant mang đến sự kết hợp hoàn hảo giữa độ giòn tan bên ngoài và mềm mại, béo ngậy bên trong.
+
+Bánh được làm từ bột mì, bơ, men, sữa và một chút muối, trải qua quá trình nhào nặn, ủ và tạo hình công phu. Điều làm nên sự khác biệt của Croissant chính là kỹ thuật "laminating" (tạo lớp), giúp bánh có hàng trăm lớp mỏng xen kẽ giữa bột và bơ, tạo nên độ bông xốp và hương vị đặc trưng.
+
+Croissant có thể thưởng thức theo nhiều cách khác nhau: từ loại truyền thống không nhân đến các biến tấu hiện đại với nhân mặn như phô mai, thịt nguội, hoặc nhân ngọt như socola, hạnh nhân, trái cây. Dù là bữa sáng nhẹ nhàng hay món ăn vặt tiện lợi, Croissant luôn mang đến trải nghiệm ẩm thực tinh tế và đầy hấp dẫn.
+
+Hãy thưởng thức một chiếc Croissant nóng hổi, thơm lừng mùi bơ cùng một tách cà phê đen đậm đà, bạn sẽ cảm nhận được sự tinh hoa của ẩm thực Pháp ngay từ miếng cắn đầu tiên!
+					</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productSections = document.querySelectorAll('.product-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            productSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+
+
+
+    <div class="container-fluid pt-4 pb-4" style="background-color: #CDC9C9;" id="footer">
+    <div class="container">
+    <div class="row" style="font-size: 1.2vw;color: black;">
+        <div class="col-3">
+            <h5>Giới thiệu</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Về Chúng Tôi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Sản phẩm</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Khuyến mãi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Cửa hàng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Tuyển dụng</a></li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <h5>Điều khoản</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Điều khoản sử dụng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Hướng dẫn xuất hóa đơn GTGT</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Chính sách bảo mật thông tin</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-6 text-right" style="height: 250px">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.9611123444442!2d105.39337027472195!3d21.31255287797184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31348de7e680a8df%3A0xceafbd228b67326c!2zVmluY29tIFBsYXphIFZp4buHdCBUcsOs!5e0!3m2!1svi!2s!4v1741708492934!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

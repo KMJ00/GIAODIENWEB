@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Trang chủ</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+     <style>
+        
+     	*{
+     		padding: 0;
+     		margin: 0;
+     		box-sizing: border-box;
+     	}
+        .content_fade {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
+        body{
+            padding-top: 110px;
+            position: relative;
+        }
+        .header {
+            background-color: #B5313A;
+            padding-bottom: 10px;
+            
+        }
+        
+                
+        .modal-content {
+            height: 100%;
+            border: none;
+            border-radius: 0; 
+                    }
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+        }
+        .dropdown-menu {
+            padding-left: 20px;
+        }
+        
+        #hover_menu .nav-item.dropdown:hover .dropdown-menu {
+            display: block; 
+        }
+        #hover_menu a:hover{
+            background-color: white;
+            color: #B5313A;
+        }
+        #hover_menu a{
+            color: white;
+        }
+         #hover_menu{
+            background-color: #FFDECF;
+         }
+
+       
+        .dropdown-menu {
+            display: none; 
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 2px solid white; 
+            border-radius: 10px; 
+                        background-color: white; 
+            padding: 10px; 
+            width: 100%;
+            margin: 25px 0;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+            font-size: 1.2vw;
+            width: 100%;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer; 
+            font-size: 1.5vw;
+            color: gray;
+            padding: 0 10px;
+
+        
+        }
+        .search-box button:hover{
+            color: #B5313A;
+        }
+        a{
+            text-decoration: none;
+        
+        }
+        #link_acc a:hover{
+            background-color: white;
+            color: #B5313A;
+        }#link_acc a{
+            color: white;
+        }
+        #link_acc a:hover button{
+            color: #B5313A;
+        }
+        #a_menu a{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        section {
+            min-height: 200px; 
+            padding: 5px 0;
+
+        }
+        .tab_san_pham {
+            text-align: center;
+            display: flex;
+            margin-top: 50px;
+           
+        }
+        .navigation {
+            position: relative;
+            width: 100%;
+            height: 65px;
+            background-color: #FFDECF;
+            border-radius: 10px;
+            
+        }
+        .navigation ul {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+
+                    }
+        .navigation ul li {
+            position: relative;
+            list-style: none;
+            width: 85px;
+            height: 65px;
+            z-index: 1;
+            margin: 0;
+        }
+        .navigation ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            line-height: 65px;
+            font-size: 1.5em;
+            text-align: center;
+            transition: 0.5s;
+            color: #B5313A !important;
+
+        }
+        .navigation ul li.active_more a .icon {
+            transform: translateY(-32px);
+        }
+        .navigation ul li a .text {
+            position: absolute;
+            color: #B5313A;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.05rem;
+            transition: 0.5s;
+            opacity: 0.3;
+            transform: translateY(20px);
+        }
+        .navigation ul li.active_more a .text {
+            opacity: 1;
+            transform: translateY(10px);
+            text-transform: capitalize;
+        }
+        .indicator {
+            position: absolute;
+            top: -50%;
+            width: 65px;
+            height: 65px;
+            background-color: #FFDECF;
+            border-radius: 50%;
+            border: 6px solid #F8F8FF;
+            transition: 0.5s;
+            left: 42px;
+        }
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -22px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border-top-right-radius: 30px;
+            box-shadow: 1px -10px 0 0 #F8F8FF;
+        }
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -22px;   
+            width: 20px;
+            height: 22px;
+            background: transparent;
+            border-top-left-radius: 30px;
+            box-shadow: -1px -10px 0 0 #F8F8FF;
+        }
+        .navigation ul li:nth-child(1).active_more ~ .indicator {
+            transform: translateX(calc(85px*0));
+        }
+        .navigation ul li:nth-child(2).active_more ~ .indicator {
+            transform: translateX(calc(85px*1));
+        }
+        .navigation ul li:nth-child(3).active_more ~ .indicator {
+            transform: translateX(calc(85px*2));
+        }
+        .navigation ul li:nth-child(4).active_more ~ .indicator {
+            transform: translateX(calc(85px*3));
+        }
+        .navigation ul li:nth-child(5).active_more ~ .indicator {
+            transform: translateX(calc(85px*4));
+        }
+        
+        #scrollToTop:hover{
+            color: white !important;
+            background-color: #B5313A !important;
+        }
+
+        .btn-wave {
+            position: fixed;
+            overflow: hidden;
+            color: white;
+            background-color: #B5313A;
+            border: none;
+            bottom: 80px;
+            right: 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .btn-wave:focus {
+            outline: none;
+        }
+
+        .wave {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+            animation: wave-animation 3s ease-out infinite;
+        }
+
+        
+        .wave:nth-child(1) { width: 100px; height: 100px; animation-delay: 0s; }
+        .wave:nth-child(2) { width: 150px; height: 150px; animation-delay: 0.2s; opacity: 0.6; }
+        .wave:nth-child(3) { width: 200px; height: 200px; animation-delay: 0.4s; opacity: 0.4; }
+        
+
+        @keyframes wave-animation {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+        }
+
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            background-color: #FFDECF;
+            width: 300px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 2px solid #B5313A; 
+        }
+
+        .chat-header {
+            background-color: #B5313A; 
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            
+            align-items: center;
+        }
+
+        .chat-body {
+            padding: 10px;
+            height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-footer input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 4px;
+        }
+
+        .chat-footer button {
+            padding: 10px;
+            background-color: #B5313A; 
+            color: white;
+            border: none;
+            border-radius: 50%; 
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px 10px;
+            border-radius: 20px;
+            max-width: 75%;
+            
+            text-align: justify-all;
+        }
+
+        .message.sent {
+            background-color: #B5313A;  
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message.received {
+            background-color: #f1f1f1; 
+            color: black;
+            align-self: flex-start;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            padding-left: 120px;
+        }
+     @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .slogan-container {
+            background-color: #FFDECF;
+            padding: 3px 0;
+            color: #B5313A;
+            margin-top: 3px;
+            border-left: 12px solid white;
+            border-right: 12px solid white;
+
+        }
+        .slogan-item {
+            text-align: center;
+        }
+        
+        .slogan-item h6 {
+            
+            font-weight: bold;
+        }
+        .slogan-item i {
+            font-size: 35px;
+            animation: pulse 1.7s infinite;
+            display: inline-block;
+        }
+        #scroll a{
+            color: #B5313A;
+        }
+        #scroll a:hover{
+            color: white;
+            background-color: #B5313A;
+        }
+        #scroll .nav-link.active{
+            background-color: transparent;
+            color: #B5313A;
+        }
+        #scroll .nav-link.active:hover{
+            color: white;
+            background-color: #B5313A;
+        }
+        .voucher-card {
+            border: 1px solid #B5313A; 
+            border-radius: 5px; 
+            padding: 10px;
+            text-align: center; 
+            margin: 5px; 
+            background-color: #fff;
+            position: relative;
+        }
+        @keyframes voucher{
+            0%{
+                transform: translate(0);
+            }
+            20%{
+                transform: translate(10px,-20px);
+            }
+            35%{
+                transform: rotate(15deg);
+            }
+            36%{
+                transform: rotate(-3deg);
+            }
+            37%{
+                transform: rotate(3deg);
+            }
+            38%{
+                transform: rotate(-3deg);
+            }
+            39%{
+                transform: rotate(3deg);
+            }
+            40%{
+                transform: rotate(-3deg);
+            }
+            41%{
+                transform: rotate(3deg);
+            }
+            42%{
+                transform: rotate(-3deg);
+            }
+            43%{
+                transform: rotate(3deg);
+            }
+            44%{
+                transform: rotate(-3deg);
+            }
+           
+            45%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: translate(0);
+            }
+        }
+        .voucher-card:hover{
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: voucher 5s ease-in-out;
+        }
+        .voucher-card h5 {
+            color: #B5313A;
+        }
+        .voucher-card p {
+            font-size: 1em;
+        }
+        .voucher-card i{
+            position: absolute;
+            top: 0;
+            left: 5px;
+            color: #B5313A;
+        }
+        .voucher-code {
+            font-weight: bold;
+            font-size: 1em;
+
+                    }
+        .code-and-button {
+            display: flex;
+            padding-left: 5px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #EEEEEE;
+
+        }
+        .btn-save {
+            background-color: #B5313A;
+            color: white;
+        }
+
+        .best_seller {
+            background-color: #FFDECF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Đảm bảo không bị tràn ra ngoài */
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            
+            background-image: url('../img/image.png');
+            
+            background-size: cover;
+        }
+
+        .slide_seller {
+            position: absolute;
+            top: -100%;
+            left: 40%;
+            width: 50%;
+            height: 90%;
+            
+            transition: top 1s ease-in-out;
+        }
+
+        .slide_seller.active_seller {
+            top: 18px;
+        }
+
+        .buttons {
+            margin: 10px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 5px;
+            width: 80px;
+            font-size: 16px;
+            background-color: white;
+            color: #B5313A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #B5313A;
+            color: white;
+        }
+
+        .info {
+            color: #B5313A;
+            position: absolute;
+            left: 25px;
+            top: 0;
+        }
+
+        .info p {
+            font-size: 18px;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            font-weight: bold;
+            color: white;
+        }
+
+        .info p.visible {
+            opacity: 1;
+        }
+        @keyframes seller{
+            0% {
+                transform: scale(1) rotate(-15deg);
+            }
+            50% {
+                transform: scale(1.3) rotate(-15deg);
+            }
+            100% {
+                transform: scale(1) rotate(-15deg);
+            }
+
+        }
+        .discount {
+           animation: seller 1.7s infinite;  
+            width: 70px;
+            height: 50px;
+            background-color: #ffa502;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #B5313A;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        #mo_ta_seller{
+            background-image: url('../img/best_seller.png');
+            background-size: cover;
+            text-align: justify;
+            
+            font-size: 1.4vw;
+            font-weight: 500;
+            color: #F4A460;
+        }
+
+        .product_flash {
+            text-align: center;
+            margin: ; /* Khoảng cách giữa các sản phẩm */
+            position: relative;
+                    }
+        .product_flash img {
+            width: 100%;
+            height: 300px;
+            
+        }
+        .price_flash {
+            font-weight: bold;
+            color: #B5313A;
+        }
+        .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        background-color: #B5313A;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 5px;
+        font-weight: bold; 
+        z-index: 1;
+    }
+    #cart_flash{
+        color: #B5313A;
+        border: 2px solid #B5313A;
+        font-size: 1.2vw;
+    }
+    #cart_flash:hover{
+        background-color: #B5313A;
+        color: white;
+    }
+
+    .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .active_sp {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+        .page_sp {
+            display: none; 
+        }
+        .active_sp {
+            display: block; 
+                    }
+        .page_sp1 {
+            display: none; 
+        }
+        .active_sp1 {
+            display: block; 
+                    }
+        .page_sp2 {
+            display: none; 
+        }
+        .active_sp2 {
+            display: block; 
+                    }
+        .page_sp3 {
+            display: none; 
+        }
+        .active_sp3 {
+            display: block; 
+                    }
+        .page_sp4 {
+            display: none; 
+        }
+        .active_sp4 {
+            display: block; 
+                    }
+        .cart-button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            position: relative;
+        }
+        .cart-button .badge {
+            position: absolute;
+            background-color: white;
+            color: red;
+            border-radius: 50%;
+           font-size: 0.8vw;
+            top: -27px;
+            left: 37px;
+        }
+        #gt_color:hover .cart-button{
+            color: #B5313A;}
+
+        #button_cac_san_pham:hover{
+            color: white;
+            background-color: #B5131A;
+        }
+        .list-unstyled a{
+            color: black;
+        }
+
+
+
+        .product-slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.product-slider {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Hiệu ứng mượt */
+    will-change: transform;
+}
+
+.product {
+    flex: 0 0 auto;
+    width: 247px; /* Điều chỉnh theo kích thước mong muốn */
+    margin-right: 10px;
+    
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng hover */
+
+
+.slider-btn-flash {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease;
+}
+
+.slider-btn-flash:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#prevBtn-flash {
+    left: 5px;
+}
+
+#nextBtn-flash {
+    right: 5px;
+}
+
+.Weekly_sales{
+    margin-top: 10px;
+    
+    padding-bottom: 10px;
+}
+
+.position-relative{
+    width: 100%;
+    height: 250px;
+}
+.position-relative img{
+    width: 100%;
+    height: 100%;
+}
+
+#img_sp img{
+    height: 200px;
+    
+    object-fit: cover;
+    overflow: hidden;
+}
+</style>
+        
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="0" tabindex="0">
+	<div class="container-fluid content_fade" id="content_fade">
+        <!-- Modal Giỏ hàng -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="margin-top: 60px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FFDECF;height: 60px;">
+                <h5 class="modal-title" id="cartModalLabel" style="">Giỏ Hàng</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="border: none;background-color: transparent; font-size: 25px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 400px;overflow-y: auto;">
+                <div id="cart-items"></div>
+                
+                <!-- Phí Vận Chuyển -->
+                <div class="form-group mt-3" id="shipping-fee-container" style="display: none;">
+                    
+                        <div class="d-flex">
+                            <div style="width: 65%">Phí vận chuyển</div>
+                            <div style="width: 35%">30.000 đ</div>
+                        </div>
+                    
+                    <p></p>
+                </div>
+
+                <!-- Danh sách voucher đã lưu -->
+                <h5 class="mt-3">Voucher đã lưu:</h5>
+                <div id="voucher-list-modal">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="voucher-options" id="no-voucher" value="none" onchange="applyVoucher()" checked>
+                        <label class="form-check-label" for="no-voucher">Không dùng voucher</label>
+                    </div>
+                    <div id="voucher-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <span id="total-price-label" style="display: none;">Tổng tiền:</span>
+                <span id="total-price-footer" style="color: red;">0</span>
+                <button type="button" id="checkout-button" class="btn" style="background-color: #B5313A;color: white;" onclick="checkout()" disabled>Thanh toán</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--nut chat -->
+<button class="btn-wave" id="chatButton">
+    <i class="bi bi-chat-dots"></i>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    
+</button>
+
+<!-- Pop-up Chat -->
+<div class="chat-popup" id="chatPopup">
+    <div class="chat-header">
+        <img src="../img/logo.png" style="width: 40px;height: 30px;">
+        The Coffee
+        <button class="close-btn" id="closeButton">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+        <button id="sendButton">Gửi</button>
+    </div>
+</div>
+<script>
+    let isFirstOpen = true;
+
+    document.getElementById('chatButton').addEventListener('click', function() {
+        const chatPopup = document.getElementById('chatPopup');
+        chatPopup.style.display = chatPopup.style.display === 'block' ? 'none' : 'block';
+
+       
+        if (chatPopup.style.display === 'block' && isFirstOpen) {
+            setTimeout(() => {
+                const chatBody = document.getElementById('chatBody');
+                const initialResponse = document.createElement('div');
+                initialResponse.classList.add('message', 'received');
+                initialResponse.textContent = "Bạn cần hỗ trợ gì?";
+                chatBody.appendChild(initialResponse);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 2000); 
+
+            isFirstOpen = false;
+        }
+    });
+
+    document.getElementById('closeButton').addEventListener('click', function() {
+        document.getElementById('chatPopup').style.display = 'none';
+    });
+
+    function sendMessage() {
+        const chatInput = document.getElementById('chatInput');
+        const chatBody = document.getElementById('chatBody');
+        if (chatInput.value.trim() !== '') {
+            const message = document.createElement('div');
+            message.classList.add('message', 'sent');
+            message.textContent = chatInput.value;
+            chatBody.appendChild(message);
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            
+            setTimeout(simulateResponse, 2000);
+        }
+    }
+
+    document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+    
+    document.getElementById('chatInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+            event.preventDefault(); 
+        }
+    });
+
+  
+    function simulateResponse() {
+        const response = document.createElement('div');
+        response.classList.add('message', 'received');
+        response.textContent = "Chúng mình sẽ phản hồi bạn iuuu sớm nhé 🥰!";
+        document.getElementById('chatBody').appendChild(response);
+        document.getElementById('chatBody').scrollTop = chatBody.scrollHeight;
+    }
+</script>
+<!--ket thuc nut chat -->
+
+<!--nut cuon trang -->
+        <button id="scrollToTop" class="btn" style="display: none; position: fixed; bottom: 20px; right: 30px;background-color: white; border-radius: 50%;width: 50px;height: 50px; color: #B5313A; font-size: 1.5em; border: 3px solid #B5313A;">
+    <i class="bi bi-arrow-up-short"></i>
+</button>
+
+<script>
+    
+    window.onscroll = function() {
+        const scrollToTopButton = document.getElementById('scrollToTop');
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            scrollToTopButton.style.display = "block";
+        } else {
+            scrollToTopButton.style.display = "none";
+        }
+    };
+
+    // Cuộn lên đầu trang khi nhấn nút
+    document.getElementById('scrollToTop').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' 
+        });
+    });
+</script>
+<!--ket thuc nut cuon trang -->
+
+        <div class="container-fluid fixed-top">
+<header class="header" style="border-bottom: 10px solid #FFDECF;;">
+        <div class="row" style="height: 100px;width: 100%;">
+        	<div class="col-3">
+                <a href="trang_chu_coffee.html" class="navbar-brand">
+             <img src="../img/logo.png" class="border-3 border " style="width: 30%;border-radius: 50%; margin-top: 6px; margin-left: 45%;">   
+             <br>
+             <span style="color: white; font-weight: bold;margin-left: 45%;font-size: 1.3vw;">The Coffee</span>
+         </a>
+            </div>
+            <div class="col-6">
+            	<div class="search-box">
+    <input type="text" placeholder="Tìm sản phẩm..." />
+    <button type="submit"><i class="bi bi-search"></i></button> <!-- Biểu tượng tìm kiếm -->
+</div>
+            </div>
+            <div class="col-3 text-center" style=" font-size: 1vw;">
+                <div class="row responsive-block" style="padding-top: 8%;" id="link_acc">
+                    
+                    <a class="col-3 border-end border-start ms-4 pt-1" style="border-radius: 10px;">
+                        <i class="bi bi-person"></i>
+                        <br>
+                        <button id="profileBtn" class="cart-button" data-bs-toggle="modal" data-bs-target="#profileModal">Tài khoản</button>
+                    </a>
+                
+                
+                    <a class="col-3 border-end border-start ms-2 pt-1" style="border-radius: 10px;" id="gt_color">
+                        <i class="bi bi-cart2"></i>
+                        <br>
+                        
+                        <button class="cart-button" onclick="showCart()">
+                                Giỏ hàng
+                                <span class="badge" id="cart-count-badge">0</span>
+                        </button>
+                    
+                    </a>
+                
+                </div>
+            </div>
+            
+        </div>
+    </header>
+</div> <!-- kết thúc khối cố định header -->
+<!-- profile modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FFDECF">
+                <h5 class="modal-title" id="profileModalLabel">Thông tin tài khoản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height: 150px">
+                <div class="d-flex justify-content-center">
+                    <i style="font-size: 50px" class="bi bi-person-circle"></i>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p id="profileInfo"></p>
+                </div>
+                
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="register.html">
+                    <button type="button" class="btn btn-success" style="color: white;">Tạo tài khoản</button>
+                </a>
+                <a href="login.html">
+                <button type="button" class="btn btn-danger" style="color: white;" onclick="xoa_profile()">
+                    <span id="button_profile"></span>
+                </button>
+                </a>
+                
+                <a href="forget.html">
+                    <button type="button" class="btn btn-warning" style="color: white;">Quên mật khẩu</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+        const profileInfo = document.getElementById("profileInfo");
+        const button_profile = document.getElementById("button_profile");
+        if (userProfile) {
+            profileInfo.textContent = `Tài khoản: ${userProfile.username}`;
+            button_profile.textContent = "Đăng xuất";
+        } else {
+            profileInfo.textContent = "Bạn chưa đăng nhập.";
+            button_profile.textContent = "Đăng nhập";
+        }
+    });
+    function xoa_profile(){
+        if (localStorage.getItem("userProfile")) {
+                localStorage.removeItem("userProfile");
+            }
+    }
+</script>
+<!-- kết thúc profile modal -->
+
+    
+<nav class="navbar navbar-expand-lg navbar-light" id="hover_menu">
+    <div class="container">
+        
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="modal" data-bs-target="#menuModal" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-none d-lg-block">
+            <ul class="navbar-nav d-flex justify-content-between" style="background-color: #B5313A;width: 100%; height: 55px; font-size: 1.2em">
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="trang_chu_coffee.html">Trang chủ</a></li>
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="sp_moi.html">Sản phẩm mới</a></li>
+
+                <li class="nav-item flex-fill m-1 dropdown">
+                    <a class="nav-link text-center dropdown-toggle border-end border-start"  style="border-radius: 3px" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tin tức</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #B5313A;">
+                        <li><a class="dropdown-item" href="tin_tuc_new.html">Mới cập nhật</a></li>
+                        <li><a class="dropdown-item" href="tin_tuc_forcus.html">Nổi bật</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item flex-fill m-1 dropdown">
+                    <a class="nav-link text-center dropdown-toggle border-end border-start"  style="border-radius: 3px" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giới thiệu</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2" style="background-color: #B5313A;">
+                        <li><a class="dropdown-item" href="gioi_thieu_sp.html">Giới thiệu sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="he_thong_ban_hang.html">Hệ thống bán hàng</a></li>
+                        
+                    </ul>
+                </li>
+                                
+                
+              
+                <li class="nav-item flex-fill m-1"><a class="nav-link text-center border-end border-start"  style="border-radius: 3px" href="lien_he.html">Liên hệ</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<!-- Modal menu-->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="position: fixed;top: 110px;left: 10px;margin: 0;"> 
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="menuModalLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a class="d-block" href="trang_chu_coffee.html" style="color: black;">Trang chủ</a></li>
+                    <li class="list-group-item"><a class="d-block" href="sp_moi.html" style="color: black;">Sản phẩm mới</a></li>
+
+                    <li class="list-group-item dropdown">
+                        <a class="dropdown-toggle d-block" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;" href="">Tin tức</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="tin_tuc_new.html">Mới cập nhật</a></li>
+                            <li><a class="dropdown-item" href="tin_tuc_forcus.html">Nổi bật</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item dropdown">
+                        <a class="dropdown-toggle d-block" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;" href="">Giới thiệu</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="gioi_thieu_sp.html">Giới thiệu sản phẩm</a></li>
+                            <li><a class="dropdown-item" href="he_thong_ban_hang.html">Hệ thống bán hàng</a></li>
+                            
+                        </ul>
+                    </li>
+                    
+                    <li class="list-group-item"><a class="d-block" href="lien_he.html" style="color: black;">Liên hệ</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!-- kết thúc khối Modal -->
+
+
+    <div class="container"> <!-- slide -->
+        <div class="carousel slide" id="slide" data-ride="carousel">
+            <div class="carousel-inner w-100" style="height: 400px;">
+                <div class="carousel-item active">
+                    <img src="../img/slide2.png" class="d-block w-100 img-fluid" style="height: 400px;width: 100%; object-fit: cover;">
+
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/slide5.png" class="d-block w-100 img-fluid" style="height: 400px;width: 100%;object-fit: cover;">
+                    
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/slide3.png" class="d-block w-100 img-fluid" style="height: 400px;width: 100%;object-fit: cover;">
+                    
+                </div><div class="carousel-item">
+                    <img src="../img/slide4.png" class="d-block w-100 img-fluid" style="height: 400px;width: 100%;object-fit: cover;">
+                    
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/slide1.png" class="d-block w-100 img-fluid" style="height: 400px;width: 100%; object-fit: cover;">
+                    
+                </div>
+                <a class="carousel-control-prev" href="#slide" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#slide" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+        </div>
+        
+    </div>
+    </div> <!-- ket thuc slide -->
+<!--slogan -->
+<div class="container slogan-container">
+    <div class="row justify-content-center">
+        <div class="col-3 slogan-item">
+            <i class="bi bi-award-fill"></i>
+            <h6>Hảo hạng</h6>
+        </div>
+        <div class="col-3 slogan-item">
+            <i class="bi bi-bookmark-heart-fill"></i>
+            <h6>Yêu thích</h6>
+        </div>
+        <div class="col-3 slogan-item">
+            <i class="bi bi-cash-coin"></i>
+            <h6>Ưu đãi</h6>
+        </div>
+        <div class="col-3 slogan-item">
+            <i class="bi bi-clock-fill"></i>
+            <h6>Phục vụ 24/7</h6>
+        </div>
+    </div>
+</div>
+<!--ket thuc slogan -->
+<div class="container"><!-- scrollpy -->
+<nav id="navbar-example" class="navbar navbar-light bg-light" style=" padding-top: 3px;">
+    <div class="container" style="background-color: #FFDECF;" id="scroll">
+        
+        
+        <ul class="nav nav-pills" style=" display: flex;justify-content: center; width: 100%;">
+            <li class="nav-item">
+                <a class="nav-link" href="#section1">Best Seller</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" href="#section2">Voucher và Freeship</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#section3">Flash Sale</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#section4">Các Sản Phẩm</a>
+            </li>
+            
+        </ul>
+    
+    </div>
+</nav>
+
+<section id="section1" class="bg-light">   
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="text-center" style="padding: 5px 0;">Best Seller</h4>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-7" style="padding-left: 0;">
+    <div class="best_seller">
+    <div class="slideshow-container">
+        <img src="../img/rangxay.png" alt="Image 1" class="slide_seller active_seller img-fluid">
+        <img src="../img/uonglien.png" alt="Image 2" class="slide_seller img-fluid">
+        <img src="../img/cafe.png" alt="Image 3" class="slide_seller img-fluid">
+        <img src="../img/tra.png" alt="Image 4" class="slide_seller img-fluid">
+        <img src="../img/banh.png" alt="Image 4" class="slide_seller img-fluid">
+        <div class="info">
+            <p id="product-name" class="visible">Cà phê bột truyền thống</p>
+            <div class="discount">Best Seller</div>
+            
+
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button onclick="showSlide(0)">Rang xay</button>
+        <button onclick="showSlide(1)">Uống liền</button>
+        <button onclick="showSlide(2)">Cà phê</button>
+        <button onclick="showSlide(3)">Trà</button>
+        <button onclick="showSlide(4)">Bánh</button>
+    </div>
+</div>
+</div>
+<div class="col-5" id="mo_ta_seller">
+<div style="font-weight: bold;padding-top: 45px; color: #8B4513;font-size: 2vw;text-shadow: 
+            -1px -1px 0px #F4A460,
+             1px -1px 0px #F4A460,
+            -1px  1px 0px #F4A460,
+             1px  1px 0px #F4A460;" class="text-center">THE COFFEE</div>
+
+    <div style="padding: 40px 15px; line-height: 35px;text-shadow: 
+            -1px -1px 0px #8B4513,
+             1px -1px 0px #8B4513,
+            -1px  1px 0px #8B4513,
+             1px  1px 0px #8B4513;">
+    Chúng tôi luôn lắng nghe ý kiến của quý khách hàng, đây là những sản phẩm được bán chạy nhất và luôn được cập nhật hàng tuần. Chúng tôi mong rằng sẽ mang được đến những trải nghiệm tốt nhất tới quý khách. Cảm ơn vì đã chọn The Coffee.</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    const slides = document.querySelectorAll('.slide_seller');
+    const productNames = ["Cà phê bột truyền thống", "Đen đá, Sữa đá, Latte", "Bạc xỉu đá", "Trà sen vàng", "Bánh Croissant"];
+    const productNameElement = document.getElementById('product-name');
+
+    function showSlide(index) {
+        
+        const currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active_seller'));
+        
+        
+        slides[currentIndex].classList.remove('active_seller');
+
+        
+        const currentProductName = productNameElement;
+        currentProductName.classList.remove('visible');
+        
+        
+        setTimeout(() => {
+            
+            slides[index].classList.add('active_seller');
+            
+            productNameElement.textContent = productNames[index];
+            
+            currentProductName.classList.add('visible');
+        }, 1000); 
+    }
+</script>
+
+</section>
+
+<section id="section2" class="bg-light">
+    <div class="container">
+    <h4 class="text-center" style="padding: 10px 0">Voucher và Freeship</h4>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="voucher-card">
+                <i class="bi bi-brightness-low-fill"></i>
+                <h5>Trợ ship đến 25K</h5>
+                <p>Nhập mã <span class="voucher-code">FS25</span> tại mục Thanh Toán, áp dụng cho đơn hàng đầu tiên.</p>
+                <div class="code-and-button">
+                    <span class="voucher-code">FS25</span>
+                    <button style="color: white;" class="btn btn-save" onclick="saveVoucherTus(this); saveVoucher('FS25', 25000)">Lưu</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="voucher-card">
+                <i class="bi bi-brightness-low-fill"></i>
+                <h5>Voucher 15K</h5>
+                <p>Nhập mã <span class="voucher-code">CFH15</span> tại mục Thanh Toán, áp dụng cho đơn từ 199,000đ trở lên.</p>
+                <div class="code-and-button">
+                    <span class="voucher-code">CFH15</span>
+                    <button style="color: white;" class="btn btn-save" onclick="saveVoucherTus(this); saveVoucher('CFH15', 15000)">Lưu</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="voucher-card">
+                <i class="bi bi-brightness-low-fill"></i>
+                <h5>Voucher 30K</h5>
+                <p>Nhập mã <span class="voucher-code">CFH30</span> tại mục Thanh Toán, áp dụng cho đơn từ 399,000đ trở lên.</p>
+                <div class="code-and-button">
+                    <span class="voucher-code">CFH30</span>
+                    <button style="color: white;" class="btn btn-save" onclick="saveVoucherTus(this); saveVoucher('CFH30', 30000)">Lưu</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="voucher-card">
+                <i class="bi bi-brightness-low-fill"></i>
+                <h5>Voucher 50K</h5>
+                <p>Nhập mã <span class="voucher-code">CFH50</span> tại mục Thanh Toán, áp dụng cho đơn từ 699,000đ trở lên.</p>
+                <div class="code-and-button">
+                    <span class="voucher-code">CFH50</span>
+                    <button style="color: white;" class="btn btn-save" onclick="saveVoucherTus(this); saveVoucher('CFH50', 50000)">Lưu</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function saveVoucherTus(button) {
+        button.innerText = "Đã lưu";
+        button.disabled = true;
+        button.classList.remove('btn-save');
+        button.classList.add('btn-secondary');
+    }
+</script>
+</section>
+
+<section id="section3" class="bg-light text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="position: relative; color: black;">
+                <i style="font-size: 1.5em;color: #B5313A;" class="bi bi-alarm-fill"></i>
+                <div id="time" style="color: #B5313A;position: absolute;left: 40px;top: 0; font-weight: bold;font-size: 1.5em;"></div>
+<script type="text/javascript">
+    let totalTime = 2 * 60 * 60; // 2 giờ (tính bằng giây)
+
+    function updateClock() {
+        
+        let hours = Math.floor(totalTime / 3600);
+        let minutes = Math.floor((totalTime % 3600) / 60);
+        let seconds = totalTime % 60;
+
+        
+        if (hours < 10) hours = '0' + hours;
+        if (minutes < 10) minutes = '0' + minutes;
+        if (seconds < 10) seconds = '0' + seconds;
+
+        
+        document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+
+        
+        totalTime--;
+
+        
+        if (totalTime < 0) {
+            totalTime = 2 * 60 * 60;
+        }
+
+        
+        setTimeout(updateClock, 1000);
+    }
+
+    
+    updateClock();
+</script>
+                <h4 class="text-center" style="padding: 0;color: black;">Flash Sale</h4>
+            </div>
+        </div>
+    
+
+<div class="Weekly_sales">
+
+                <!-- Danh sách sản phẩm -->
+                <div class="product-slider-container">
+                    <button id="prevBtn-flash" class="slider-btn-flash btn btn-dark">&#10094;</button>
+                    <div class="product-slider text-center">
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 20%</span>
+                                    <img src="../img/flash1.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Cà phê bột truyền thống nguyên chất</div>                               <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">389.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">466.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Cà phê bột truyền thống', 389000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20truyền%20thống%20nguyên%20chất&price=389.000&image=../img/flash1.jpg&image2=../img/flash12.jpg&image3=../img/flash13.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 15%</span>
+                                    <img src="../img/flash2.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Combo 2 gói cà phê Moka</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">199.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">228.000đ</del>
+                                    </div>  
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Combo 2 gói cà phê Moka', 199000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Combo%202%20gói%20cà%20phê%20Moka&price=199.000&image=../img/flash2.jpg&image2=../img/flash22.jpg&image3=../img/flash23.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 10%</span>
+                                    <img src="../img/flash3.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Trọn vị combo 3 cà phê rang xay</div>                               <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">319.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">350.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Trọn vị combo 3 cà phê rang xay', 319000)">Giỏ hàng</button>
+
+                                    <a href="chi_tiet.html?name=Chọn%20vị%20combo%203%20cà%20phê%20rang%20xay&price=319.000&image=../img/flash3.jpg&image2=../img/flash32.jpg&image3=../img/flash33.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 18%</span>
+                                    <img src="../img/flash4.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Cà phê rang xay Banquet</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">445.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">525.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Cà phê rang xay Banquet', 445000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Cà%20phê%20rang%20xay%20Banquet&price=445.000&image=../img/flash4.jpg&image2=../img/flash42.jpg&image3=../img/flash43.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 12%</span>
+                                    <img src="../img/flash5.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Combo 2 cà phê rang xay truyền thống</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">850.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">952.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Combo 2 cà phê rang xay', 850000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Combo%202%20cà%20phê%20rang%20xay%20truyền%20thống&price=850.000&image=../img/flash5.jpg&image2=../img/flash52.jpg&image3=../img/flash53.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 15%</span>
+                                    <img src="../img/flash6.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Cà phê bột mới</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">430.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">495.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Cà phê bột mới', 430000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20mới&price=430.000&image=../img/flash6.jpg&image2=../img/flash62.jpg&image3=../img/flash63.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 20%</span>
+                                    <img src="../img/flash7.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Combo 3 cà phê rang xay truyền thống</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">265.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">320.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Combo 3 cà phê rang xay', 265000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Combo%203%20cà%20phê%20rang%20xay%20truyền%20thống&price=265.000&image=../img/flash7.jpg&image2=../img/flash72.jpg&image3=../img/flash73.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="card border-0 shadow-sm">
+                                <div class="position-relative">
+                                    <span class="badge bg-danger position-absolute top-0 start-0">Giảm 20%</span>
+                                    <img src="../img/flash8.jpg">
+                                </div>
+                                <div class="card-body">
+                                    <div style="color: black;font-size: 1.2vw; height: 55px;">Cà phê rang xay Culi 200g</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="text-danger fw-bold mb-0 me-2">115.000đ</p>
+                                        <del class="text-muted fw-bold mb-0">140.000đ</del>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    
+                                    <button class="btn" id="cart_flash" onclick="addToCart('Cà phê rang xay Culi 200g', 115000)">Giỏ hàng</button>
+                                    <a href="chi_tiet.html?name=Cà%20phê%20rang%20xay%20Culi%20200g&price=115.000&image=../img/flash8.jpg&image2=../img/flash82.jpg&image3=../img/flash83.jpg">
+                                    <button class="btn" id="cart_flash">Chi tiết</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Thêm các sản phẩm khác -->
+                    </div>
+                    <button id="nextBtn-flash" class="slider-btn-flash btn btn-dark">&#10095;</button>
+                </div>
+            </div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".product-slider");
+    const prevBtn_flash = document.getElementById("prevBtn-flash");
+    const nextBtn_flash = document.getElementById("nextBtn-flash");
+    const products = document.querySelectorAll(".product");
+    const productWidth = products[0].offsetWidth + 10;
+    const maxVisibleItems = 5;
+    let currentIndex = 0;
+
+    
+    slider.style.display = "flex"; 
+    slider.style.transition = "transform 0.3s ease-in-out";
+
+    function updateSliderPosition() {
+        const newTransformValue = -currentIndex * productWidth + "px";
+        slider.style.transform = `translateX(${newTransformValue})`;
+    }
+
+    function scrollLeftFunc() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSliderPosition();
+        }
+    }
+
+    function scrollRightFunc() {
+        if (currentIndex + maxVisibleItems < products.length) {
+            currentIndex++;
+            updateSliderPosition();
+        }
+    }
+
+    prevBtn_flash.addEventListener("click", scrollLeftFunc);
+    nextBtn_flash.addEventListener("click", scrollRightFunc);
+
+    
+});
+
+</script>
+
+</div>
+</section>
+
+<section id="section4" class="bg-light">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="text-center" style="position: relative; top: 20px">Các sản phẩm</h4>
+        </div>
+    </div>
+<div class="tab_san_pham container">
+    <div style="background-color: #FFDECF;border-radius: 10px;" class="w-100 d-flex">
+<div class="navigation" style="margin-left: 2%;">
+    <ul id="myTab" role="tablist">
+        <li class="nav-item list active_more" role="presentation">
+            <a class="active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab">
+                <span class="icon">
+                    <ion-icon name="file-tray-full-outline"></ion-icon>
+                </span>
+                <span class="text">rang xay</span>
+            </a>
+        </li>
+        <li class="nav-item list" role="presentation">
+            <a id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab">
+                <span class="icon">
+                    <ion-icon name="wine-outline"></ion-icon>
+                </span>
+                <span class="text">uống liền</span>
+            </a>
+        </li>
+        <li class="nav-item list" role="presentation">
+            <a id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab">
+                <span class="icon">
+                    <ion-icon name="cafe-outline"></ion-icon>
+                </span>
+                <span class="text">cà phê</span>
+            </a>
+        </li>
+        <li class="nav-item list" role="presentation">
+            <a id="contact-tab1" data-bs-toggle="tab" href="#contact1" role="tab">
+                <span class="icon">
+                    <ion-icon name="leaf-outline"></ion-icon>
+                </span>
+                <span class="text">trà</span>
+            </a>
+        </li>
+        <li class="nav-item list" role="presentation">
+            <a id="contact-tab2" data-bs-toggle="tab" href="#contact2" role="tab">
+                <span class="icon">
+                    <ion-icon name="pizza-outline"></ion-icon>  
+                </span>
+                <span class="text">bánh</span>
+            </a>
+        </li>
+        <div class="indicator"></div>
+    </ul>
+</div> <!--ket thuc khoi navigation -->
+    </div>
+</div>
+
+<div class="container" id="img_sp">
+<div class="tab-content test" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div id="page1" class="page_sp active_sp">
+            
+                <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/rangxay1.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">399.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê bột truyền thống 1kg tặng 1 gói 200g</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê truyền thống 1kg', 399000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20truyền%20thống%201kg%20tặng%201%20gói%20200g&price=399.000&image=../img/rangxay1.jpg&image2=../img/rangxay12.jpg&image3=../img/rangxay13.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash63.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">775.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 2 cà phê rang xay truyền thống</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 2 cà phê rang xay', 775000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%202%20cà%20phê%20rang%20xay%20truyền%20thống&price=775.000&image=../img/flash63.jpg&image2=../img/flash62.jpg&image3=../img/flash22.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash62.jpg" class="card-img-top" alt="Sản phẩm 3">
+                <div class="card-body text-center">
+                    <span class="price_flash">232.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 2 gói cà phê rang xay Moka</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 2 gói cà phê Moka', 232000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%202%20gói%20cà%20phê%20rang%20xay%20Moka&price=232.000&image=../img/flash62.jpg&image2=../img/flash23.jpg&image3=../img/flash2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash72.jpg" class="card-img-top" alt="Sản phẩm 4">
+                <div class="card-body text-center">
+                    <span class="price_flash">320.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 3 gói cà phê rang xay</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 3 gói cà phê rang xay', 320000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%203%20gói%20cà%20phê%20rang%20xay&price=320.000&image=../img/flash72.jpg&image2=../img/flash73.jpg&image3=../img/flash32.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/rangxay12.jpg" class="card-img-top" alt="Sản phẩm 5">
+                <div class="card-body text-center">
+                    <span class="price_flash">389.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê bột truyền thống 1kg</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê bột truyền thống 1kg', 389000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20truyền%20thống%201kg&price=389.000&image=../img/rangxay12.jpg&image2=../img/rangxay13.jpg&image3=../img/flash13.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash8.jpg" class="card-img-top" alt="Sản phẩm 6">
+                <div class="card-body text-center">
+                    <span class="price_flash">115.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê rang xay Culi gói 200g</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê rang xay Culi 200g', 115000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20rang%20xay%20Culi%20200g&price=115.000&image=../img/flash8.jpg&image2=../img/flash43.jpg&image3=../img/flash82.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            </div> <!--ket thuc page 1 -->
+            <div id="page2" class="page_sp">
+                <div class="row g-2 mt-1">
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash8.jpg" class="card-img-top" alt="Sản phẩm 6">
+                <div class="card-body text-center">
+                    <span class="price_flash">115.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê rang xay Culi gói 200g</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê rang xay Culi 200g', 115000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20rang%20xay%20Culi%20200g&price=115.000&image=../img/flash8.jpg&image2=../img/flash43.jpg&image3=../img/flash82.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/rangxay12.jpg" class="card-img-top" alt="Sản phẩm 5">
+                <div class="card-body text-center">
+                    <span class="price_flash">389.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê bột truyền thống 1kg</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê bột truyền thống 1kg', 389000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20truyền%20thống%201kg&price=389.000&image=../img/rangxay12.jpg&image2=../img/rangxay13.jpg&image3=../img/flash13.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash63.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">775.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 2 cà phê rang xay truyền thống</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 2 cà phê rang xay', 775000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%202%20cà%20phê%20rang%20xay%20truyền%20thống&price=775.000&image=../img/flash63.jpg&image2=../img/flash62.jpg&image3=../img/flash22.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash62.jpg" class="card-img-top" alt="Sản phẩm 3">
+                <div class="card-body text-center">
+                    <span class="price_flash">232.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 2 gói cà phê rang xay Moka</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 2 gói cà phê Moka', 232000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%202%20gói%20cà%20phê%20rang%20xay%20Moka&price=232.000&image=../img/flash62.jpg&image2=../img/flash23.jpg&image3=../img/flash2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/flash72.jpg" class="card-img-top" alt="Sản phẩm 4">
+                <div class="card-body text-center">
+                    <span class="price_flash">320.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo 3 gói cà phê rang xay</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo 3 gói cà phê rang xay', 320000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%203%20gói%20cà%20phê%20rang%20xay&price=320.000&image=../img/flash72.jpg&image2=../img/flash73.jpg&image3=../img/flash32.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/rangxay1.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">399.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cà phê bột truyền thống 1kg tặng 1 gói 200g</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cà phê truyền thống 1kg', 399000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cà%20phê%20bột%20truyền%20thống%201kg%20tặng%201%20gói%20200g&price=399.000&image=../img/rangxay1.jpg&image2=../img/rangxay12.jpg&image3=../img/rangxay13.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+            </div>
+            <!-- ket thuc page 2-->
+            <ul class="pagination">
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show(1)">Trang 1</a></li>
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show(2)">Trang 2</a></li>
+            </ul>
+            <script>
+    let pages = document.querySelectorAll('.page_sp');
+   
+    function show(page) {
+        pages.forEach(page => page.classList.remove('active_sp'));
+
+        let pageselect = document.getElementById(`page${page}`);
+        
+        if(pageselect){
+            pageselect.classList.add('active_sp');
+        }
+    }
+</script>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div id="page3" class="page_sp1 active_sp1">
+            <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien2.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">287.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 185ml', 287000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20185ml&price=287.000&image=../img/uonglien2.jpg&image2=../img/uonglien3.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">352.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 235ml', 352000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20235ml&price=352.000&image=../img/uonglien3.jpg&image2=../img/uonglien4.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien4.jpg" class="card-img-top" alt="Sản phẩm 3">
+                <div class="card-body text-center">
+                    <span class="price_flash">299.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê vị mới 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê vị mới 185ml', 299000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20vị%20mới%20185ml&price=299.000&image=../img/uonglien4.jpg&image2=../img/uonglien2.jpg&image3=../img/uonglien3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien1.jpg" class="card-img-top" alt="Sản phẩm 4">
+                <div class="card-body text-center">
+                    <span class="price_flash">399.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê vị mới 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê vị mới 235ml', 399000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20vị%20mới%20235ml&price=399.000&image=../img/uonglien1.jpg&image2=../img/uonglien2.jpg&image3=../img/uonglien3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien2.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">287.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 185ml', 287000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20185ml&price=287.000&image=../img/uonglien2.jpg&image2=../img/uonglien3.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">352.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 235ml', 352000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20235ml&price=352.000&image=../img/uonglien3.jpg&image2=../img/uonglien4.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div> <!--ket thuc page 3 -->
+            <div id="page4" class="page_sp1">
+                <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien1.jpg" class="card-img-top" alt="Sản phẩm 4">
+                <div class="card-body text-center">
+                    <span class="price_flash">399.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê vị mới 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê vị mới 235ml', 399000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20vị%20mới%20235ml&price=399.000&image=../img/uonglien1.jpg&image2=../img/uonglien2.jpg&image3=../img/uonglien3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien2.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">287.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 185ml', 287000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20185ml&price=287.000&image=../img/uonglien2.jpg&image2=../img/uonglien3.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">352.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 235ml', 352000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20235ml&price=352.000&image=../img/uonglien3.jpg&image2=../img/uonglien4.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien2.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">287.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 185ml', 287000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20185ml&price=287.000&image=../img/uonglien2.jpg&image2=../img/uonglien3.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">352.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê sữa 235ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê sữa 235ml', 352000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20sữa%20235ml&price=352.000&image=../img/uonglien3.jpg&image2=../img/uonglien4.jpg&image3=../img/uonglien1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/uonglien4.jpg" class="card-img-top" alt="Sản phẩm 3">
+                <div class="card-body text-center">
+                    <span class="price_flash">299.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Thùng 24 lon cà phê vị mới 185ml</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Thùng 24 lon cà phê vị mới 185ml', 299000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Thùng%2024%20lon%20cà%20phê%20vị%20mới%20185ml&price=299.000&image=../img/uonglien4.jpg&image2=../img/uonglien2.jpg&image3=../img/uonglien3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+            <!--ket thuc page 4 -->
+            <ul class="pagination">
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show1(3)"> Trang 1</a></li>
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show1(4)">Trang 2</a></li>
+            </ul>
+            <script>
+    let pages1 = document.querySelectorAll('.page_sp1');
+   
+    function show1(page) {
+        pages1.forEach(page => page.classList.remove('active_sp1'));
+
+        let pageselect1 = document.getElementById(`page${page}`);
+                if(pageselect1){
+            pageselect1.classList.add('active_sp1');
+        }
+    }
+</script>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div id="page5" class="page_sp2 active_sp2">
+            <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe1.jpg" class="card-img-top" alt="Sản phẩm 1">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Phin sữa nóng</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Phin sữa nóng', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Phin%20sữa%20nóng&price=29.000&image=../img/cafe1.jpg&image2=../img/cafe2.jpg&image3=../img/cafe3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe2.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Phin đen nóng</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Phin đen nóng', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Phin%20đen%20nóng&price=29.000&image=../img/cafe2.jpg&image2=../img/cafe3.jpg&image3=../img/cafe4.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bạc xỉu đá</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bạc xỉu đá', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bạc%20xỉu%20đá&price=29.000&image=../img/cafe3.jpg&image2=../img/cafe4.jpg&image3=../img/cafe5.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe4.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">65.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Cappuccino</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Cappuccino', 65000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Cappuccino&price=65.000&image=../img/cafe4.jpg&image2=../img/cafe5.jpg&image3=../img/cafe6.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe5.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">69.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Caramel Macchiato</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Caramel Macchiato', 69000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Caramel%20Macchiato&price=69.000&image=../img/cafe5.jpg&image2=../img/cafe6.jpg&image3=../img/cafe7.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe6.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Espresso</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Espresso', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Espresso&price=45.000&image=../img/cafe6.jpg&image2=../img/cafe7.jpg&image3=../img/cafe8.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div> <!--ket thuc page 5 -->
+            <div id="page6" class="page_sp2"><div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe7.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">65.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Latte</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Latte', 65000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Latte&price=65.000&image=../img/cafe7.jpg&image2=../img/cafe8.jpg&image3=../img/cafe9.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe8.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">69.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Mocha Macchiato</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Mocha Macchiato', 69000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Mocha%20Macchiato&price=69.000&image=../img/cafe8.jpg&image2=../img/cafe9.jpg&image3=../img/cafe10.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe9.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">99.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Combo Latte</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Combo Latte', 99000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Combo%20Latte&price=99.000&image=../img/cafe9.jpg&image2=../img/cafe10.jpg&image3=../img/cafe11.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe10.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">49.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Phin Culi đen đá</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Phin Culi đen đá', 49000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Phin%20Culi%20đen%20đá&price=49.000&image=../img/cafe10.jpg&image2=../img/cafe11.jpg&image3=../img/cafe12.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe11.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">55.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Phin Culi sữa đá</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Phin Culi sữa đá', 55000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Phin%20Culi%20sữa%20đá&price=55.000&image=../img/cafe11.jpg&image2=../img/cafe12.jpg&image3=../img/cafe1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/cafe12.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">55.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Phindi Cassia</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Phindi Cassia', 55000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Phindi%20Cassia&price=55.000&image=../img/cafe12.jpg&image2=../img/cafe1.jpg&image3=../img/cafe2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+            <!--ket thuc page 6 -->
+            <ul class="pagination">
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show2(5)">Trang 1</a></li>
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show2(6)">Trang 2</a></li>
+            </ul>
+            <script>
+    let pages2 = document.querySelectorAll('.page_sp2');
+   
+    function show2(page) {
+        pages2.forEach(page => page.classList.remove('active_sp2'));
+
+        let pageselect2 = document.getElementById(`page${page}`);
+        
+        if(pageselect2){
+            pageselect2.classList.add('active_sp2');
+        }
+    }
+</script>
+        </div>
+        <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact-tab1">
+            <div id="page7" class="page_sp3 active_sp3">
+            <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà sen vàng</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà sen vàng', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20sen%20vàng&price=45.000&image=../img/tra1.jpg&image2=../img/tra2.jpg&image3=../img/tra3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra2.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà sen vàng (củ năng)</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà sen vàng (củ năng)', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20sen%20vàng%20(củ năng)&price=45.000&image=../img/tra2.jpg&image2=../img/tra3.jpg&image3=../img/tra4.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thạch vải</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thạch vải', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thạch%20vải&price=45.000&image=../img/tra3.jpg&image2=../img/tra4.jpg&image3=../img/tra5.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra4.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thanh đào</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thanh đào', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thanh%20đào&price=45.000&image=../img/tra4.jpg&image2=../img/tra5.jpg&image3=../img/tra6.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra5.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thạch đào</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thạch đào', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thạch%20đào&price=45.000&image=../img/tra5.jpg&image2=../img/tra6.jpg&image3=../img/tra1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra6.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà xanh đậu đỏ</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà xanh đậu đỏ', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20xanh%20đậu%20đỏ&price=45.000&image=../img/tra6.jpg&image2=../img/tra1.jpg&image3=../img/tra2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div> <!--ket thuc page 7 -->
+            <div id="page8" class="page_sp3">
+                <div class="row g-2 mt-1">
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thạch vải</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thạch vải', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thạch%20vải&price=45.000&image=../img/tra3.jpg&image2=../img/tra4.jpg&image3=../img/tra5.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà sen vàng</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà sen vàng', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20sen%20vàng&price=45.000&image=../img/tra1.jpg&image2=../img/tra2.jpg&image3=../img/tra3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra2.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà sen vàng (củ năng)</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà sen vàng (củ năng)', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20sen%20vàng%20(củ năng)&price=45.000&image=../img/tra2.jpg&image2=../img/tra3.jpg&image3=../img/tra4.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra4.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thanh đào</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thanh đào', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thanh%20đào&price=45.000&image=../img/tra4.jpg&image2=../img/tra5.jpg&image3=../img/tra6.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra6.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà xanh đậu đỏ</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà xanh đậu đỏ', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20xanh%20đậu%20đỏ&price=45.000&image=../img/tra6.jpg&image2=../img/tra1.jpg&image3=../img/tra2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/tra5.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">45.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Trà thạch đào</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Trà thạch đào', 45000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Trà%20thạch%20đào&price=45.000&image=../img/tra5.jpg&image2=../img/tra6.jpg&image3=../img/tra1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+            <!-- ket thuc page 8-->
+            <ul class="pagination">
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show3(7)">Trang 1</a></li>
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show3(8)">Trang 2</a></li>
+            </ul>
+            <script>
+    let pages3 = document.querySelectorAll('.page_sp3');
+       function show3(page) {
+        pages3.forEach(page => page.classList.remove('active_sp3'));
+
+        let pageselect3 = document.getElementById(`page${page}`);
+        
+        if(pageselect3){
+            pageselect3.classList.add('active_sp3');
+        }
+    }
+</script>
+        </div>
+        <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+            <div id="page9" class="page_sp4 active_sp4">
+            <div class="row g-2 mt-1">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh.png" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Croissant</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Croissant', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Croissant&price=29.000&image=../img/banh.png&image2=../img/banh1.jpg&image3=../img/banh2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai chanh dây</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai chanh dây', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20chanh%20dây&price=35.000&image=../img/banh1.jpg&image2=../img/banh2.jpg&image3=../img/banh3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh2.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Caramel</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Caramel', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Caramel&price=35.000&image=../img/banh2.jpg&image2=../img/banh3.jpg&image3=../img/banh1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai cà phê</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai cà phê', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20cà%20phê&price=35.000&image=../img/banh3.jpg&image2=../img/banh2.jpg&image3=../img/banh1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh.png" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Croissant</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Croissant', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Croissant&price=29.000&image=../img/banh.png&image2=../img/banh1.jpg&image3=../img/banh2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai chanh dây</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai chanh dây', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20chanh%20dây&price=35.000&image=../img/banh1.jpg&image2=../img/banh2.jpg&image3=../img/banh3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div> <!--ket thuc page 9 -->
+            <div id="page10" class="page_sp4">
+                <div class="row g-2 mt-1">
+        
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai chanh dây</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai chanh dây', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20chanh%20dây&price=35.000&image=../img/banh1.jpg&image2=../img/banh2.jpg&image3=../img/banh3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh2.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Caramel</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Caramel', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Caramel&price=35.000&image=../img/banh2.jpg&image2=../img/banh3.jpg&image3=../img/banh1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh.png" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Croissant</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Croissant', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Croissant&price=29.000&image=../img/banh.png&image2=../img/banh1.jpg&image3=../img/banh2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh1.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai chanh dây</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai chanh dây', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20chanh%20dây&price=35.000&image=../img/banh1.jpg&image2=../img/banh2.jpg&image3=../img/banh3.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh3.jpg" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">35.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh phô mai cà phê</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh phô mai cà phê', 35000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20phô%20mai%20cà%20phê&price=35.000&image=../img/banh3.jpg&image2=../img/banh2.jpg&image3=../img/banh1.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="card" style="height: 330px;">
+                
+                <img src="../img/banh.png" class="card-img-top" alt="Sản phẩm 2">
+                <div class="card-body text-center">
+                    <span class="price_flash">29.000đ</span>
+                    <br>
+                    <div>
+                    <span style="font-size: 0.9vw">Bánh Croissant</span>
+                </div>
+                <div style="height: 45px;display: flex;width: 100%;justify-content: space-between;">
+                    <button style="margin: 5px 2px 0 0; background-color: white;color: #B5313A;border: 1px solid #B5313A;font-size: 0.85vw;flex: 1;" class="btn" onclick="addToCart('Bánh Croissant', 29000)">Giỏ hàng</button>
+                    <a href="chi_tiet.html?name=Bánh%20Croissant&price=29.000&image=../img/banh.png&image2=../img/banh1.jpg&image3=../img/banh2.jpg" class="btn" style="margin-top: 5px; background-color: white;color: #B5131A;border: 1px solid #B5131A;font-size: 0.9vw;flex: 1;padding-top: 10px;">Chi tiết</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+            </div>
+            <!--ket thuc page 10 -->
+            <ul class="pagination">
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show4(9)">Trang 1</a></li>
+            <li class="page-item"><a style="background-color: #FFDECF; color: #B5313A;border: none; cursor: pointer;" class="page-link" onclick="show4(10)">Trang 2</a></li>
+            </ul>
+        </div>
+        <script>
+    let pages4 = document.querySelectorAll('.page_sp4');
+      function show4(page) {
+        pages4.forEach(page => page.classList.remove('active_sp4'));
+
+        let pageselect4 = document.getElementById(`page${page}`);
+            if(pageselect4){
+            pageselect4.classList.add('active_sp4');
+        }
+    }
+</script>
+    </div>
+    </div>
+
+<script type="text/javascript">
+    const list = document.querySelectorAll('.list');
+    function active_more() {
+        list.forEach((item) => item.classList.remove('active_more'));
+        this.classList.add('active_more');
+    }
+    list.forEach((item) => item.addEventListener('click', active_more));
+</script>
+</section>
+<script>
+        document.querySelectorAll('#navbar-example .nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        const headerOffset = document.querySelector('.header').offsetHeight; // Khoảng cách từ header
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    });
+});
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#navbar-example .nav-link');
+
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (pageYOffset >= sectionTop - 70) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    </div><!-- kết thúc khoi scrollpy -->
+    <!--footer -->
+    <div class="container-fluid pt-4 pb-4" style="background-color: #CDC9C9;" id="footer">
+    <div class="container">
+    <div class="row" style="font-size: 1.2vw;">
+        <div class="col-3">
+            <h5>Giới thiệu</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Về Chúng Tôi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Sản phẩm</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Khuyến mãi</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Cửa hàng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Tuyển dụng</a></li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <h5>Điều khoản</h5>
+            <ul class="list-unstyled">
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Điều khoản sử dụng</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Hướng dẫn xuất hóa đơn GTGT</a></li>
+                <li><a href="#"><i class="bi bi-caret-right-fill"></i>Chính sách bảo mật thông tin</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-6 text-right" style="height: 250px">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.9611123444442!2d105.39337027472195!3d21.31255287797184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31348de7e680a8df%3A0xceafbd228b67326c!2zVmluY29tIFBsYXphIFZp4buHdCBUcsOs!5e0!3m2!1svi!2s!4v1741708492934!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+
+</div> <!-- kết thúc khối chứa tất cả nội dung -->
+<script>
+    let cartCount = 0;
+    let cartItems = [];
+    let totalPrice = 0;
+    let appliedVoucher = null;
+    let savedVouchers = [];
+
+    function addToCart(productName, price) {
+        const existingItem = cartItems.find(item => item.name === productName);
+        if (existingItem) {
+            existingItem.quantity += 1;
+            totalPrice += price;
+        } else {
+            cartItems.push({ name: productName, price: price, quantity: 1 });
+            totalPrice += price;
+        }
+        cartCount++;
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+    }
+    function saveVoucher(voucherCode, discount) {
+        if (!savedVouchers.includes(voucherCode)) {
+            savedVouchers.push(voucherCode);    
+            updateVoucherList();
+        }
+    }
+    function updateVoucherList() {
+        const voucherListDiv = document.getElementById("voucher-list");
+        voucherListDiv.innerHTML = "";
+
+        savedVouchers.forEach(voucher => {
+            const voucherDiv = document.createElement("div");
+            voucherDiv.innerHTML = `
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="voucher-options" id="${voucher}" value="${voucher}" onchange="applyVoucher()">
+                    <label class="form-check-label" for="${voucher}">${voucher}</label>
+                </div>
+            `;
+            voucherListDiv.appendChild(voucherDiv);
+        });
+        updateVoucherOptions();
+    }
+    function applyVoucher() {
+        const selectedVoucher = document.querySelector('input[name="voucher-options"]:checked');
+        if (selectedVoucher) {
+            const voucherCode = selectedVoucher.value;
+            if (voucherCode === "none") {
+                appliedVoucher = null;
+            } else {
+                const discount = getVoucherDiscount(voucherCode);
+                appliedVoucher = discount; 
+            }
+            updateTotalPrice();
+        }
+    }
+    function updateCartModal() {
+        const cartItemsDiv = document.getElementById("cart-items");
+        cartItemsDiv.innerHTML = ""; 
+        if (cartItems.length === 0) {
+            cartItemsDiv.innerHTML = `<p class="text-center">Giỏ hàng trống</p>`;
+            document.getElementById("shipping-fee-container").style.display = "none";
+            document.getElementById("total-price-label").style.display = "none";
+            document.getElementById("total-price-footer").innerText = "0";
+            disableVoucherOptions(true);
+        } else {
+            cartItems.forEach((item, index) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>${item.name} (${item.quantity})</span>
+                        <div>
+                            <span>${(item.price * item.quantity).toLocaleString()}đ</span>
+                            <button style="margin: 1px auto" class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, 1)">+</button>
+                            <button style="margin: 2px auto" class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, -1)">-</button>
+                            <button style="margin: 2px auto" class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Xóa</button>
+                        </div>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+            document.getElementById("shipping-fee-container").style.display = "block"; 
+            document.getElementById("total-price-label").style.display = "block";
+            updateTotalPrice();
+            disableVoucherOptions(false);
+            updateVoucherOptions();
+        }
+    }
+    function disableVoucherOptions(disable) {
+        const voucherOptions = document.querySelectorAll('input[name="voucher-options"]');
+        voucherOptions.forEach(option => {
+            option.disabled = disable;
+        });
+    }
+    function updateTotalPrice() {
+        let total = totalPrice + 30000;
+        if (appliedVoucher) {
+            total -= appliedVoucher; 
+        }
+        document.getElementById("total-price-footer").innerText = total.toLocaleString() + "đ";
+        document.getElementById("checkout-button").disabled = cartItems.length === 0;
+        // Kiểm tra điều kiện áp dụng voucher
+        updateVoucherOptions();
+    }
+    function updateVoucherOptions() {
+        const totalValue = totalPrice + 30000;
+        const voucherOptions = document.querySelectorAll('input[name="voucher-options"]');
+        voucherOptions.forEach(option => {
+            const voucherCode = option.value;
+            const condition = getVoucherCondition(voucherCode);
+            option.disabled = totalValue < condition;
+            if (option.checked && option.disabled) {
+                document.getElementById("no-voucher").checked = true;
+            }
+        });
+    }
+    function getVoucherCondition(voucherCode) {
+        const validConditions = {
+            'FS25': 0,
+            'CFH15': 199000,
+            'CFH30': 399000,
+            'CFH50': 699000
+        };
+        return validConditions[voucherCode] || 0;
+    }
+    function getVoucherDiscount(voucherCode) {
+        const validVouchers = {
+            'FS25': 25000,
+            'CFH15': 15000,
+            'CFH30': 30000,
+            'CFH50': 50000
+        };
+        return validVouchers[voucherCode] || 0;
+    }
+    function changeQuantity(index, delta) {
+        const item = cartItems[index];
+        if (item.quantity + delta > 0) {
+            item.quantity += delta;
+            totalPrice += delta * item.price; 
+            updateCartModal();
+            document.getElementById("cart-count-badge").innerText = cartItems.reduce((count, item) => count + item.quantity, 0);
+        }
+    }
+
+    function removeFromCart(index) {
+        totalPrice -= cartItems[index].price * cartItems[index].quantity; 
+        cartItems.splice(index, 1); 
+        cartCount = cartItems.reduce((count, item) => count + item.quantity, 0); 
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+    }
+
+    function checkout() {
+        alert("Thanh toán thành công!");
+        cartCount = 0;
+        cartItems = [];
+        totalPrice = 0;
+        appliedVoucher = null; 
+        document.getElementById("cart-count-badge").innerText = cartCount;
+        updateCartModal();
+        document.getElementById("no-voucher").checked = true;
+        disableVoucherOptions(true);
+    }
+
+    function showCart() {
+        updateCartModal(); 
+        $('#cartModal').modal('show');
+    }
+</script>
+<script>
+    window.addEventListener('load', () => {
+    const content_fade = document.getElementById('content_fade');
+    content_fade.classList.add('fade-in');
+});
+</script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

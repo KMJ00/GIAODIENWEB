@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Đăng nhập</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+	
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		h2{
+			font-size: 1.7em;
+			color: #fff;
+			text-align: center;
+		}
+		.inputbox{
+			position: relative;
+			margin: 30px 0;
+			width: 310px;
+			border-bottom: 2px solid #fff;
+		}
+		.inputbox label{
+			position: absolute;
+			top: 50%;
+			left: 5px;
+			transform: translateY(-50%);
+			color: #fff;
+			font-size: 1em;
+			pointer-events: none;
+			transition: .5s;
+		}
+		input:focus ~ label,input:not(:placeholder-shown) ~ label{
+			top: -5px;
+		}
+		section{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			width: 100%;
+			background: url(../img/login.jpg) no-repeat;
+			background-position: center;
+			background-size: cover;
+			text-decoration: none;
+		}
+		.form-box{
+			position: relative;
+			width: 400px;
+			height: 450px;
+			background: transparent;
+			border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 20px;
+			backdrop-filter: blur(15px);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.inputbox input{
+			width: 95%;
+			height: 50px;
+			background: transparent;
+			border: none;
+			outline: none;
+			font-size: 1em;
+			padding: 0 35px 0 5px;
+			color: #fff;
+		}
+		.hople{
+			display: none;
+		}
+		input:valid + label .hople{
+			display: inline;
+		}
+		.loi{
+			display: none;
+		}
+		input:valid + label .loi{
+			display: none !important;
+		}
+		input:not(:placeholder-shown) ~ label .loi{
+			display: inline;
+		}
+		.forget{
+			margin: -15px 0 15px;
+			font-size: .9em;
+			color: #fff;
+			display: flex;
+			justify-content: space-between;
+		}
+		.forget label input{
+			margin-right: 3px;
+		}
+		.forget label a{
+			color: #fff;
+			text-decoration: none;
+			margin-left: 60px;
+		}
+		.forget label a:hover{
+			text-decoration: underline;
+		}
+		#submit{
+			width: 100%;
+			height: 40px;
+			border-radius: 40px;
+			background: #fff;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			font-size: 1em;
+			font-weight: 600;
+		}
+		#submit:hover{
+			color: #FF4500;
+		}
+		.register{
+			font-size: .9em;
+			color: #fff;
+			text-align: center;
+			margin: 25px 0 10px;
+		}
+		.register p a{
+			text-decoration: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.register p a:hover{
+			text-decoration: underline;
+		}
+		#show{
+			position: absolute;
+			top: 30px;
+			left: 285px;
+			cursor: pointer;
+		}
+		#diseye{
+			display: none;
+			color: #B5B5B5;
+			font-size: 1.3em;
+		}
+		#eye{
+			color: #E8E8E8;
+			font-size: 1.3em;
+		}
+
+        .loading-container {
+            display: none;
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-top: 20px;
+            left: 16%;
+        }
+        .loading {
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            z-index: 1;
+        }
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: black;
+            animation: move 3s linear infinite;
+            top: 60px;
+            left: 40px;
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotate(0deg) translate(30px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translate(30px) rotate(0deg);
+            }
+        }
+	</style>
+</head>
+<body>
+<section>
+	<div class="form-box" >
+		<div class="form-value" id="loginForm">
+			<form onsubmit="login()">
+				<h2>ĐĂNG NHẬP</h2>
+				<div class="inputbox">
+					<input id="tk" type="text" name="" required placeholder="" pattern="^[A-Za-z].{5,}$" title="Tên đăng nhập phải bắt đầu bằng chữ cái, không có dấu và có ít nhất 6 kí tự" autocomplete="off">
+					<label>Tên đăng nhập
+						<span class=hople> &ensp;<img src="../img/tich.png" style="width: 20px; height: 15px;"></span>
+						<span class=loi> &ensp;<img src="../img/loi.png" style="width: 20px; height: 15px;"></span>
+					</label>
+				</div>
+				<div class="inputbox">
+					<div id=show onclick="showpassword()">
+						<i class="bi bi-eye" id=eye></i>
+						<i class="bi bi-eye-slash-fill" id=diseye></i>
+					</div>
+					<input type="password" id="pass" name="" required pattern="^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$" placeholder="" title="Mật khẩu phải có ít nhất một kí tự đặc biệt, một chữ hoa, một chữ thường và có ít nhất 6 kí tự">
+					<label>Mật khẩu
+						<span class=hople> <img src="../img/tich.png" style="width: 20px; height: 15px;"></span>
+						<span class=loi> &ensp;<img src="../img/loi.png" style="width: 20px; height: 15px;"></span>
+					</label>
+				</div>
+				<div class="forget">
+					<label style="padding-left: 20px;"><input type="checkbox">Ghi nhớ<a href="forget.html" style="padding-left: 50px;">Quên mật khẩu</a></label>
+				</div>
+				<button id="submit">Đăng nhập</button>
+				<div class="register">
+					<p>Thành viên mới?&ensp;<a href="register.html">Đăng ký</p>
+				</div>
+			</form>
+			
+	</div>
+			<div class="loading-container" id="loadingContainer">
+        		<div class="loading">Loading</div>
+    		</div>
+</section>
+
+</body>
+<script type="text/javascript">
+	const loginForm = document.getElementById('loginForm');
+    const loadingContainer = document.getElementById('loadingContainer');
+	var pass = document.getElementById('pass');
+	var tk = document.getElementById('tk');
+	var show = document.getElementById('show');
+	var eye = document.getElementById('eye');
+	var diseye = document.getElementById('diseye');
+	function showpassword(){
+		if(pass.type === 'password'){
+			pass.setAttribute('type','text');
+			diseye.setAttribute('style','display: block');
+			eye.setAttribute('style','display: none');
+		}
+		else{
+			pass.setAttribute('type','password');
+			diseye.setAttribute('style','display: none');
+			eye.setAttribute('style','display: block');
+		}
+	}
+	function login(){
+		event.preventDefault();
+		var username = tk.value;
+		var password = pass.value;
+	    var users = JSON.parse(localStorage.getItem("users")) || [];
+	    var found = false;
+	    for(var i=0;i<users.length;i++){
+	    	if(users[i].username === username && users[i].password === password){
+	    		found = true;
+	    		break;
+	    	}
+	    }
+		 if (found) {
+		 	loginForm.style.display = 'none';
+        loadingContainer.style.display = 'block';
+
+        const dotCount = 8;
+        for (let i = 0; i < dotCount; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            const speed = 3 + (i * 0.2);
+            dot.style.animationDuration = `${speed}s`;
+            dot.style.animationDelay = `${-i * 0.1}s`;
+            dot.style.transform = `rotate(${i * (360 / dotCount)}deg) translate(30px) rotate(-${i * (360 / dotCount)}deg)`;
+            loadingContainer.appendChild(dot);
+        }
+
+        setTimeout(() => {
+            loadingContainer.style.display = 'none';
+            if (localStorage.getItem("userProfile")) {
+                localStorage.removeItem("userProfile");
+            }
+            // Lưu thông tin vào Local Storage
+            localStorage.setItem("userProfile", JSON.stringify({ username: username }));
+            window.location.href = 'trang_chu_coffee.html';
+        }, 4500);
+
+   		  
+		}
+         else {
+   		  alert("Tên đăng nhập hoặc mật khẩu không chính xác");
+  }
+}
+</script>
+</html>
